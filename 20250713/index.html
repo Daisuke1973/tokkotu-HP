@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>旭川東高同窓会 札幌突兀会</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="photo/mark1.gif" type="image/gif">
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <img src="photo/mark1.gif" alt="札幌突兀会 ロゴ" class="header-logo">
+            <div>
+                <h1>旭川東高等学校同窓会 札幌突兀会</h1>
+            </div>
+        </div>
+    </header>
+    <nav>
+        <a href="index.html" class="active">トップページ</a>
+        <a href="gaiyo.html">概要</a>
+        <a href="soukai.html">総会・懇親会</a>
+        <a href="kaihou.html">会報</a>
+        <a href="ayumi.html">あゆみ</a>
+        <a href="kaisoku.html">会則</a>
+        <a href="yakuin.html">役員名簿</a>
+        <a href="sotsugyo.html">卒業年次表</a>
+        <a href="kouka.html">校歌</a>
+        <a href="links.html">リンク</a>
+        <a href="backnumber.html">バックナンバー</a>
+    </nav>
+
+    
+
+    <main>
+        <div class="container">
+            <section class="news-section">
+                <h2 class="section-title">お知らせ</h2>
+                <div class="news-grid">
+
+                    <article class="news-item">
+                        <header class="news-header">
+                            <h3>春の役員会・幹事会報告</h3>
+                            <div class="date">2025.06.02</div>
+                        </header>
+                        <div class="news-content">
+                            <p>遅くなってしまいましたが、５月１２日（月）に行われました「春の役員・幹事会」の模様を本ＨＰへ追加しました。</p>
+                            <p>今回もいつもの通り東急ＲＥＩホテル２階「プリエール」で突兀会春の役員会・幹事会は会場２３名の参加で和やかに始まった。（１名欠席）<br>
+                            最初に会長の挨拶。「同窓会は同期の横のつながりと同窓の縦のつながりがあり、通常では経験できない様々なことがこれからの人生を豊かにしてくれる。出席者の近況報告が実に楽しい。」と述べられた。...</p>
+                            <p class="author">ＨＰ担当　東高５３期　渡辺　恵士朗</p>
+                        </div>
+                    </article>
+
+                    <article class="news-item">
+                        <header class="news-header">
+                            <h3>５月１２日突兀会春の役員会・幹事会報告</h3>
+                            <div class="date">2025.06.02</div>
+                        </header>
+                        <div class="news-content">
+                            <p>当番４２期納(おさめ)当番長からの現在の進捗報告。現在まで１４２名参加であるが、１週間前の５月３１日にゴルフコンペを持ってきたことで、コンペ参加者が１割増の３７名、同時参加も１０名と期待通りに増加し、１ヶ月前で１６９名の参加となる旨を説明した。...</p>
+                             <p>久々に同窓の中本君のＢａｒ夜光虫で２次会を開催したところ１８名も集まり、各テーブルで先輩後輩問わず、笑い声に包まれた2次会となった。</p>
+                            <p class="author">突兀会幹事長　東高２８期　畠山</p>
+                        </div>
+                    </article>
+
+                    
+
+                    <!-- ...以下、他のお知らせも同様にカードとして追加... -->
+
+                </div>
+            </section>
+            
+            
+
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 旭川東高同窓会 札幌突兀会</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentPath = window.location.pathname.split('/').pop();
+            const navLinks = document.querySelectorAll('nav a');
+
+            navLinks.forEach(link => {
+                const linkPath = link.getAttribute('href');
+                if (linkPath === currentPath) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,919 @@
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@700&family=Noto+Sans+JP:wght@400;500;700&display=swap');
+
+/* Modern CSS Reset */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* Global Styles & New Color Palette */
+:root {
+    --primary-color: #2c3e50; /* Midnight Blue */
+    --secondary-color: #8695a7; /* Cool Gray */
+    --accent-color: #3498db; /* Peter River Blue */
+    --background-color: #f4f7f9; /* Very Light Gray */
+    --surface-color: #ffffff; /* White */
+    --text-color: #34495e; /* Wet Asphalt */
+    --light-border-color: #e1e5e8;
+    --font-sans: 'Inter', 'Noto Sans JP', sans-serif;
+    --font-display: 'Montserrat', sans-serif;
+    --shadow-sm: 0 2px 4px rgba(0,0,0,0.05);
+    --shadow-md: 0 5px 15px rgba(0,0,0,0.08);
+    --border-radius: 8px;
+}
+
+body {
+    font-family: var(--font-sans);
+    line-height: 1.7;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.container {
+    max-width: 1100px;
+    margin: auto;
+    padding: 0 20px;
+}
+
+/* Header & Title */
+header {
+    background: var(--surface-color);
+    padding: 1.5rem 0; /* Increased padding */
+    border-bottom: 1px solid var(--light-border-color);
+}
+
+header .container {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Centered content */
+    gap: 25px;
+    flex-wrap: wrap; /* 画面が狭い時に折り返す */
+}
+
+.header-logo {
+    height: 70px; /* Increased size */
+    flex-shrink: 0;
+}
+
+header h1 {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: 2rem; /* Increased size */
+    font-weight: 700;
+    color: var(--primary-color);
+    text-align: center; /* 狭い画面で中央揃えに */
+}
+
+/* Navigation Bar */
+nav {
+    background: var(--primary-color);
+    padding: 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: var(--shadow-md);
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+nav a {
+    color: #ffffff;
+    text-decoration: none;
+    padding: 1rem 1.5rem;
+    transition: background-color 0.2s ease, color 0.2s ease;
+    font-weight: 500;
+    border-bottom: 4px solid transparent;
+    text-align: center;
+}
+
+nav a:hover {
+    background-color: var(--accent-color);
+}
+
+nav a.active {
+    font-weight: 700;
+    border-bottom-color: var(--accent-color);
+}
+
+/* Main Content Card */
+.main-content {
+    max-width: 980px;
+    width: 100%;
+    padding: 40px;
+    background: var(--surface-color);
+    margin: 40px auto;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-md);
+}
+
+.main-content h2 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    color: var(--primary-color);
+    border-bottom: 3px solid var(--accent-color);
+    padding-bottom: 15px;
+    margin-top: 0;
+    margin-bottom: 40px;
+    text-align: center;
+    font-size: 2rem;
+}
+
+.main-content h3 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-top: 1em;
+    margin-bottom: 0.5em;
+    padding-left: 15px;
+    border-left: 4px solid var(--accent-color);
+}
+
+.main-content p {
+    margin-bottom: 1.5rem;
+    font-size: 1rem;
+    overflow-wrap: break-word;
+    word-break: break-word;
+}
+
+/* News Section (index.html) */
+.news-section {
+    padding: 0;
+}
+
+.section-title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    color: var(--primary-color);
+    border-bottom: 3px solid var(--accent-color);
+    padding-bottom: 15px;
+    margin-bottom: 40px;
+    text-align: center;
+    font-size: 2rem;
+}
+
+.news-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 30px;
+}
+
+.news-item {
+    background: var(--surface-color);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-sm);
+    padding: 30px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border: 1px solid var(--light-border-color);
+}
+
+.news-item:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-md);
+}
+
+.news-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    border-bottom: 1px solid var(--light-border-color);
+    padding-bottom: 15px;
+    gap: 15px;
+}
+
+.news-header h3 {
+    margin: 0;
+    font-family: var(--font-display);
+    font-weight: 700;
+    color: var(--primary-color);
+    font-size: 1.3rem;
+}
+
+.news-header .date {
+    font-size: 0.85rem;
+    color: var(--secondary-color);
+    font-weight: 600;
+    background-color: var(--background-color);
+    padding: 5px 12px;
+    border-radius: 20px;
+    flex-shrink: 0;
+}
+
+.news-content p {
+    font-size: 1rem;
+    line-height: 1.8;
+}
+
+.news-content .author {
+    text-align: right;
+    font-size: 0.9rem;
+    font-style: italic;
+    color: var(--secondary-color);
+    margin-top: 20px;
+}
+
+/* Table Styles (gaiyo.html, kaisoku.html, ayumi.html) */
+.overview-table, .ayumi-table, .revision-history-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 30px 0;
+    font-size: 1rem;
+    border: 1px solid var(--light-border-color);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+}
+
+.overview-table th, .ayumi-table th, .revision-history-table th {
+    background-color: #f1f5f8;
+    padding: 15px;
+    text-align: left;
+    font-weight: 600;
+    color: var(--primary-color);
+    border-bottom: 2px solid var(--light-border-color);
+}
+
+.overview-table td, .ayumi-table td, .revision-history-table td {
+    padding: 15px;
+    border-bottom: 1px solid var(--light-border-color);
+}
+
+.overview-table tbody tr:last-child td,
+.ayumi-table tbody tr:last-child td,
+.revision-history-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.overview-table tbody tr:nth-of-type(even),
+.ayumi-table tbody tr:nth-of-type(even) {
+    background-color: #f8fafc;
+}
+
+.overview-table th:first-child {
+    width: 180px;
+}
+
+/* Specific page styles */
+.attribution {
+    text-align: right;
+    font-size: 0.9em;
+    font-style: italic;
+    color: var(--secondary-color);
+    margin-top: -1em;
+    margin-bottom: 2em;
+}
+
+.kaisoku-content .chapter {
+    margin-bottom: 2.5em;
+}
+.kaisoku-content .chapter-title {
+    font-size: 1.3rem;
+}
+.kaisoku-content ol {
+    padding-left: 20px;
+    margin-left: 20px;
+}
+
+.year-chart-content .year-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 15px;
+}
+.year-grid-item {
+    background-color: var(--surface-color);
+    padding: 12px 18px;
+    border-radius: var(--border-radius);
+    border: 1px solid var(--light-border-color);
+    transition: all 0.2s ease;
+    text-align: center;
+}
+.year-grid-item:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--accent-color);
+}
+.year-grid-item a {
+    text-decoration: none;
+    color: var(--accent-color);
+    font-weight: 500;
+}
+
+.song-section {
+    margin-bottom: 1.5em;
+    border: 1px solid var(--light-border-color);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+}
+.song-section h3 {
+    font-family: var(--font-sans);
+    font-size: 1.2rem;
+    color: var(--text-color);
+    margin: 0;
+    padding: 15px 20px;
+    cursor: pointer;
+    background-color: #f8fafc;
+    border: none;
+    border-left: none;
+    position: relative;
+}
+.song-section h3::after {
+    content: '+';
+    position: absolute;
+    right: 20px;
+    font-size: 1.5rem;
+    color: var(--secondary-color);
+    transition: transform 0.3s ease;
+}
+.song-section h3.active::after {
+    transform: rotate(45deg);
+}
+.lyrics-content {
+    padding: 0 20px;
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease-in-out, opacity 0.4s ease-in-out, padding 0.4s ease-in-out;
+}
+.lyrics-content.show {
+    padding: 20px;
+    opacity: 1;
+}
+.lyrics-content ol {
+    padding-left: 20px;
+    margin-left: 20px;
+}
+.lyrics-content ol li {
+    margin-bottom: 1em;
+    background: none; border: none; box-shadow: none;
+}
+
+.link-list {
+    list-style: none;
+}
+.link-list li {
+    background: var(--surface-color);
+    margin-bottom: 15px;
+    border-radius: var(--border-radius);
+    border: 1px solid var(--light-border-color);
+    transition: all 0.2s ease;
+}
+.link-list li:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--accent-color);
+}
+.link-list li a {
+    text-decoration: none;
+    color: var(--primary-color);
+    font-weight: 600;
+    font-size: 1.1rem;
+    padding: 20px;
+    display: block;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 2rem 1rem;
+    background: var(--primary-color);
+    color: var(--background-color);
+    margin-top: 40px;
+}
+footer p {
+    margin: 0;
+    color: var(--secondary-color);
+}
+
+/* Styles for ayumi.html event cards */
+.event-cards-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 30px;
+    margin-top: 30px;
+}
+
+.event-card {
+    background-color: var(--surface-color);
+    border: 1px solid var(--light-border-color);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+    transition: all 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 25px;
+}
+
+.event-cards-container .event-card:last-child {
+    margin-bottom: 0;
+}
+
+/* Info Box (役員会便り 冒頭の文章) */
+.info-box {
+    background-color: #f8fafc;
+    border-left: 4px solid var(--accent-color);
+    padding: 20px 25px;
+    margin-bottom: 40px;
+    border-radius: 0 var(--border-radius) var(--border-radius) 0;
+}
+.info-box p:last-child {
+    margin-bottom: 0;
+}
+
+/* Accordion styles for yakuinkai.html */
+.accordion-item {
+    width: 100%;
+    border: 1px solid var(--light-border-color);
+    border-radius: var(--border-radius);
+    margin-bottom: 20px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.accordion-item:hover {
+    border-color: var(--accent-color);
+    box-shadow: var(--shadow-md);
+}
+
+.accordion-header {
+    background-color: var(--surface-color);
+    padding: 5px 25px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background-color 0.2s ease;
+    width: 100%;
+    /* h3のスタイルを上書き */
+    margin: 0;
+    border-left: none;
+    padding-left: 25px;
+    text-align: left;
+}
+
+.accordion-header.active {
+    background-color: #f8fafc;
+}
+
+.accordion-header-content {
+    flex-grow: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.kaihou-accordion-header-content {
+    flex-direction: row;
+    align-items: center;
+    gap: 10px; /* Adjust as needed */
+}
+
+.accordion-header .date {
+    font-size: 0.8rem; /* Smaller font size */
+    font-weight: 600;
+    color: var(--secondary-color);
+    background-color: var(--background-color);
+    padding: 2px 6px; /* Smaller padding */
+    border-radius: 10px; /* More rounded */
+    flex-shrink: 0;
+}
+
+.accordion-header .title {
+    font-size: 1.1rem; /* Smaller font size */
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-top: 0; /* Remove top margin */
+    margin-bottom: 0; /* Remove bottom margin */
+    white-space: nowrap; /* Prevent text wrapping */
+    overflow: hidden;
+    text-overflow: ellipsis; /* Add ellipsis for overflow */
+}
+
+.accordion-header-details {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 20px;
+    margin-top: 10px;
+    font-size: 0.9rem;
+    color: var(--secondary-color);
+}
+
+.accordion-header-details span {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.accordion-header::after {
+    content: '+';
+    font-size: 2rem;
+    color: var(--secondary-color);
+    transition: transform 0.3s ease;
+    font-weight: 300;
+    flex-shrink: 0;
+    margin-left: 15px;
+}
+
+.accordion-header.active::after {
+    transform: rotate(45deg);
+}
+
+.accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease-in-out, padding 0.4s ease-in-out;
+    padding: 0 25px;
+    background-color: var(--surface-color);
+}
+
+.accordion-item.active .accordion-content {
+    padding: 20px;
+    padding: 20px;
+    border-top: 1px solid var(--light-border-color);
+}
+
+.kiji-footer {
+    text-align: right;
+    margin-top: 20px;
+    font-style: italic;
+    color: var(--secondary-color);
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('photo/473041961_29005869285679317_8590079737183509684_n.jpg');
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    opacity: 0.05;
+    z-index: -1;
+    pointer-events: none;
+}
+
+/* Backnumber Page Styles */
+.backnumber-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    margin-top: 30px;
+}
+
+.backnumber-card {
+    background: var(--surface-color);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-sm);
+    padding: 20px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border: 1px solid var(--light-border-color);
+    text-align: center;
+}
+
+.backnumber-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--accent-color);
+}
+
+.backnumber-card h3 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    color: var(--primary-color);
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    border-bottom: none;
+    padding-left: 0;
+}
+
+.backnumber-card p {
+    font-size: 1rem;
+    color: var(--text-color);
+    margin-bottom: 20px;
+}
+
+.backnumber-card .button {
+    display: inline-block;
+    background-color: var(--accent-color);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background-color 0.2s ease;
+}
+
+.backnumber-card .button:hover {
+    background-color: #2980b9;
+}
+
+/* Search container for ayumi.html */
+.search-container {
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.search-container input[type="text"] {
+    width: 100%;
+    max-width: 400px;
+    padding: 12px 20px;
+    border: 1px solid var(--light-border-color);
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    color: var(--text-color);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.search-container input[type="text"]:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+}
+
+/* Image Gallery for Soukai Page */
+.image-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 15px;
+    margin-top: 30px;
+}
+
+.image-gallery img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    cursor: pointer;
+}
+
+.image-gallery img:hover {
+    transform: scale(1.03);
+    box-shadow: var(--shadow-md);
+}
+
+.event-section h3 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 1.8rem;
+    color: var(--primary-color);
+    border-bottom: 2px solid var(--accent-color);
+    padding-bottom: 10px;
+}
+
+.event-section p {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+/* Image Grid for Event Photos */
+.image-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.image-grid img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    cursor: pointer;
+}
+
+.image-grid img:hover {
+    transform: scale(1.05);
+    box-shadow: var(--shadow-md);
+}
+
+.accordion-content img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin-bottom: 10px;
+}
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1001;
+    padding-top: 60px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.9);
+}
+
+.modal-content {
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 800px;
+    animation-name: zoom;
+    animation-duration: 0.6s;
+}
+
+@keyframes zoom {
+    from {transform:scale(0)}
+    to {transform:scale(1)}
+}
+
+.close {
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.close:hover,
+.close:focus {
+    color: #bbb;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 1.5rem;
+    }
+    .header-logo {
+        height: 50px;
+    }
+    nav a {
+        padding: 0.8rem 1rem;
+    }
+    .main-content {
+        padding: 20px;
+        margin: 20px auto;
+    }
+    .main-content h2, .section-title {
+        font-size: 1.6rem;
+    }
+    .news-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .accordion-header {
+        padding: 15px 20px;
+    }
+    .accordion-header-details {
+        gap: 8px 15px;
+    }
+}
+
+/* Article Card Styles (for golf.html, etc.) */
+.article-card {
+    background: var(--surface-color);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-sm);
+    padding: 30px;
+    margin-bottom: 30px;
+    border: 1px solid var(--light-border-color);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.article-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-md);
+}
+
+.article-header {
+    border-bottom: 1px solid var(--light-border-color);
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+}
+
+.article-header .date {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--secondary-color);
+    background-color: var(--background-color);
+    padding: 4px 12px;
+    border-radius: 20px;
+    display: inline-block;
+    margin-bottom: 10px;
+}
+
+.article-header h3 {
+    margin: 0 0 10px 0;
+    font-family: var(--font-display);
+    font-weight: 700;
+    color: var(--primary-color);
+    font-size: 1.6rem;
+    border: none; /* Override default h3 styles */
+    padding: 0;
+}
+
+.article-details {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 20px;
+    font-size: 0.9rem;
+    color: var(--secondary-color);
+}
+
+.article-details span {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.article-body p {
+    margin-bottom: 1em;
+}
+
+.article-body h4 {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--primary-color);
+    margin-top: 1.5em;
+    margin-bottom: 0.8em;
+}
+
+.article-body h5 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-top: 1.2em;
+    margin-bottom: 0.5em;
+}
+
+.article-body ul, .article-body ol {
+    margin-bottom: 1em;
+    padding-left: 20px;
+}
+
+.article-body .kiji-footer {
+    text-align: right;
+    margin-top: 30px;
+    font-style: italic;
+    color: var(--secondary-color);
+}
+
+/* Accessibility: Keyboard Focus */
+:focus-visible {
+    outline: 2px solid var(--accent-color);
+    outline-offset: 3px;
+    border-radius: 5px;
+}
+
+details summary {
+    cursor: pointer;
+}
+
+/* yakuin.html table style */
+.yakuin-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 30px 0;
+    font-size: 1rem;
+    border: 1px solid var(--light-border-color);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+}
+
+.yakuin-table th, .yakuin-table td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid var(--light-border-color);
+}
+
+.yakuin-table th {
+    background-color: #f1f5f8;
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+.yakuin-table tbody tr:nth-of-type(even) {
+    background-color: #f8fafc;
+}
+
+.yakuin-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.yakuin-table tbody tr:hover {
+    background-color: #e9f5ff;
+}

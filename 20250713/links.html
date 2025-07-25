@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>リンク - 旭川東高同窓会 札幌突兀会</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <img src="photo/mark1.gif" alt="札幌突兀会 ロゴ" class="header-logo">
+            <div>
+                <h1>旭川東高等学校同窓会 札幌突兀会</h1>
+            </div>
+        </div>
+    </header>
+    <nav>
+        <a href="index.html">トップページ</a>
+        <a href="gaiyo.html">概要</a>
+        <a href="soukai.html">総会・懇親会</a>
+        <a href="kaihou.html">会報</a>
+        <a href="ayumi.html">あゆみ</a>
+        <a href="kaisoku.html">会則</a>
+        <a href="yakuin.html">役員名簿</a>
+        <a href="sotsugyo.html">卒業年次表</a>
+        <a href="kouka.html">校歌</a>
+        <a href="links.html" class="active">リンク</a>
+        <a href="backnumber.html">バックナンバー</a>
+    </nav>
+    <div class="container">
+        <div class="main-content">
+            <h2>リンク集</h2>
+            <ul class="link-list">
+                <li><a href="http://www.ah.hokkaido-c.ed.jp/" target="_blank">北海道旭川東高等学校</a></li>
+                <li><a href="http://www.ah.hokkaido-c.ed.jp/teiji/" target="_blank">北海道旭川東高等学校（定時制）</a></li>
+                <li><a href="http://www.asahikawahigashi.jp/" target="_blank">旭川東高校同窓会</a></li>
+                <li><a href="https://www.facebook.com/asahikawaeast.dousoukai/?locale=ja_JP" target="_blank">旭川東高校同窓会Facebook</a></li>
+                <li><a href="https://www.asahikawahigashi-tokyo.jp/index.html" target="_blank">旭川東高等学校東京同窓会</a></li>
+                
+                
+            </ul>
+        </div>
+    </div>
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 旭川東高同窓会 札幌突兀会</p>
+        </div>
+    </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentPath = window.location.pathname.split('/').pop();
+            const navLinks = document.querySelectorAll('nav a');
+
+            navLinks.forEach(link => {
+                const linkPath = link.getAttribute('href');
+                if (linkPath === currentPath) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
