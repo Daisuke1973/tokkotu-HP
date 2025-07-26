@@ -48,18 +48,7 @@
             <p>&copy; 2025 旭川東高同窓会 札幌突兀会</p>
         </div>
     </footer>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const currentPath = window.location.pathname.split('/').pop();
-            const navLinks = document.querySelectorAll('nav a');
-
-            navLinks.forEach(link => {
-                const linkPath = link.getAttribute('href');
-                if (linkPath === currentPath) {
-                    link.classList.add('active');
-                }
-            });
-        });
-    </script>
+  <script src="script.js"></script>
+  <a href="#" id="back-to-top" class="back-to-top-btn" aria-label="ページトップへ戻る">▲</a>
 </body>
 </html>

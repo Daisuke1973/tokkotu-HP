@@ -34,6 +34,37 @@
         <div class="main-content">
             <h2>会報</h2>
 
+            <!-- ドロップダウン形式の目次 -->
+            <div class="toc-dropdown">
+                <button id="toc-toggle-btn" class="toc-toggle-btn">
+                    <span>会報一覧を見る</span>
+                    <span class="toc-icon"></span>
+                </button>
+                <div id="toc-content" class="toc-content">
+                    <ul>
+                        <li><a href="#kaihou-2024"><span class="toc-date">令和6年発行</span><span class="toc-title">会報第41号</span></a></li>
+                        <li><a href="#kaihou-2023"><span class="toc-date">令和5年発行</span><span class="toc-title">会報第40号</span></a></li>
+                        <li><a href="#kaihou-2019"><span class="toc-date">令和元年発行</span><span class="toc-title">会報第39号</span></a></li>
+                        <li><a href="#kaihou-2018"><span class="toc-date">平成30年発行</span><span class="toc-title">会報第38号</span></a></li>
+                        <li><a href="#kaihou-2017"><span class="toc-date">平成29年発行</span><span class="toc-title">会報第37号</span></a></li>
+                        <li><a href="#kaihou-2016"><span class="toc-date">平成28年発行</span><span class="toc-title">会報第36号</span></a></li>
+                        <li><a href="#kaihou-2015"><span class="toc-date">平成27年発行</span><span class="toc-title">会報第35号</span></a></li>
+                        <li><a href="#kaihou-2014"><span class="toc-date">平成26年発行</span><span class="toc-title">会報第34号</span></a></li>
+                        <li><a href="#kaihou-2013"><span class="toc-date">平成25年発行</span><span class="toc-title">会報第33号</span></a></li>
+                        <li><a href="#kaihou-2012"><span class="toc-date">平成24年発行</span><span class="toc-title">会報第32号</span></a></li>
+                        <li><a href="#kaihou-2011"><span class="toc-date">平成23年発行</span><span class="toc-title">会報第31号</span></a></li>
+                        <li><a href="#kaihou-2010"><span class="toc-date">平成22年発行</span><span class="toc-title">会報第30号</span></a></li>
+                        <li><a href="#kaihou-2009-2"><span class="toc-date">平成21年発行</span><span class="toc-title">会報第29号</span></a></li>
+                        <li><a href="#kaihou-2008"><span class="toc-date">平成20年発行</span><span class="toc-title">会報第28号</span></a></li>
+                        <li><a href="#kaihou-2007"><span class="toc-date">平成19年発行</span><span class="toc-title">会報第27号</span></a></li>
+                        <li><a href="#kaihou-2006"><span class="toc-date">平成18年発行</span><span class="toc-title">会報第26号</span></a></li>
+                        <li><a href="#kaihou-2005"><span class="toc-date">平成17年発行</span><span class="toc-title">会報第25号</span></a></li>
+                        <li><a href="#kaihou-2004"><span class="toc-date">平成16年発行</span><span class="toc-title">会報第24号</span></a></li>
+                        <li><a href="#kaihou-2003"><span class="toc-date">平成15年発行</span><span class="toc-title">会報第23号</span></a></li>
+                    </ul>
+                </div>
+            </div>
+
             <!-- 第41号 -->
             <div class="accordion-item" id="kaihou-2024">
                 <h3 class="accordion-header">
@@ -1840,117 +1871,7 @@
         <span class="close">&times;</span>
         <img class="modal-content" id="img01">
     </div>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const currentPath = window.location.pathname.split('/').pop();
-            const navLinks = document.querySelectorAll('nav a');
-
-            navLinks.forEach(link => {
-                const linkPath = link.getAttribute('href');
-                if (linkPath === currentPath) {
-                    link.classList.add('active');
-                }
-            });
-
-            const accordionItems = document.querySelectorAll('.accordion-item');
-
-            // Function to close all accordions
-            function closeAllAccordions() {
-                accordionItems.forEach(item => {
-                    item.classList.remove('active');
-                    item.querySelector('.accordion-header').classList.remove('active');
-                    item.querySelector('.accordion-content').style.maxHeight = null;
-
-                    // Reset inner details elements
-                    item.querySelectorAll('details').forEach(details => {
-                        details.open = false;
-                    });
-                });
-            }
-
-            // Function to update accordion height
-            function updateAccordionHeight(contentElement) {
-                contentElement.style.maxHeight = contentElement.scrollHeight + 'px';
-            }
-
-            accordionItems.forEach(item => {
-                const header = item.querySelector('.accordion-header');
-                const content = item.querySelector('.accordion-content');
-
-                header.addEventListener('click', () => {
-                    const wasActive = item.classList.contains('active');
-                    
-                    // First, close all accordions.
-                    closeAllAccordions();
-
-                    // If the clicked item was not already active, open it.
-                    if (!wasActive) {
-                        item.classList.add('active');
-                        header.classList.add('active');
-                        updateAccordionHeight(content); // Call the new function
-
-                        // Recalculate height after images load for the active accordion
-                        const images = content.querySelectorAll('img');
-                        let imagesLoaded = 0;
-                        if (images.length > 0) {
-                            images.forEach(img => {
-                                if (img.complete) {
-                                    imagesLoaded++;
-                                } else {
-                                    img.addEventListener('load', () => {
-                                        imagesLoaded++;
-                                        if (item.classList.contains('active')) {
-                                            updateAccordionHeight(content); // Recalculate after image load
-                                        }
-                                    });
-                                }
-                            });
-                            // If all images were already complete, ensure height is correct
-                            if (imagesLoaded === images.length) {
-                                updateAccordionHeight(content); // Ensure height is correct if all images were already complete
-                            }
-                        }
-                    }
-                });
-
-                // Recalculate height when inner details are toggled
-                content.querySelectorAll('details').forEach(details => {
-                    details.addEventListener('toggle', () => {
-                        if (item.classList.contains('active')) {
-                            updateAccordionHeight(content); // Recalculate after details toggle
-                        }
-                    });
-                });
-            });
-
-            // Image Modal functionality
-            const modal = document.getElementById("imageModal");
-            const modalImg = document.getElementById("img01");
-            const galleryImages = document.querySelectorAll(".image-grid img");
-            const span = document.getElementsByClassName("close")[0];
-
-            galleryImages.forEach(img => {
-                img.onclick = function(){
-                    modal.style.display = "block";
-                    modalImg.src = this.src;
-                }
-            });
-
-            if(span) {
-                span.onclick = function() { 
-                    modal.style.display = "none";
-                }
-            }
-
-            if(modal) {
-                modal.onclick = function(event) {
-                    if (event.target === modal) {
-                        modal.style.display = "none";
-                    }
-                }
-            }
-        });
-    </script>
+  <script src="script.js"></script>
+  <a href="#" id="back-to-top" class="back-to-top-btn" aria-label="ページトップへ戻る">▲</a>
 </body>
 </html>

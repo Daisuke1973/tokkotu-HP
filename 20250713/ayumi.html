@@ -504,55 +504,7 @@
             <p>&copy; 2025 旭川東高同窓会 札幌突兀会</p>
         </div>
     </footer>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const accordionHeaders = document.querySelectorAll('.accordion-header');
-            const yearSearchInput = document.getElementById('yearSearch');
-            const accordionItems = document.querySelectorAll('.ayumi-accordion-container .accordion-item');
-
-            accordionHeaders.forEach(header => {
-                header.addEventListener('click', function() {
-                    const accordionItem = this.closest('.accordion-item');
-                    const content = accordionItem.querySelector('.accordion-content');
-
-                    accordionItem.classList.toggle('active');
-                    if (content.style.maxHeight) {
-                        content.style.maxHeight = null;
-                    } else {
-                        content.style.maxHeight = content.scrollHeight + "px";
-                    }
-                });
-            });
-
-            yearSearchInput.addEventListener('keyup', function() {
-                const searchTerm = yearSearchInput.value.toLowerCase();
-
-                accordionItems.forEach(item => {
-                    const yearText = item.querySelector('.accordion-header span:first-child').textContent.toLowerCase();
-                    const subText = item.querySelector('.accordion-header .sub-text') ? item.querySelector('.accordion-header .sub-text').textContent.toLowerCase() : '';
-
-                    if (yearText.includes(searchTerm) || subText.includes(searchTerm)) {
-                        item.style.display = '';
-                    } else {
-                        item.style.display = 'none';
-                    }
-                });
-            });
-        });
-    </script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const currentPath = window.location.pathname.split('/').pop();
-            const navLinks = document.querySelectorAll('nav a');
-
-            navLinks.forEach(link => {
-                const linkPath = link.getAttribute('href');
-                if (linkPath === currentPath) {
-                    link.classList.add('active');
-                }
-            });
-        });
-    </script>
+     <script src="script.js"></script>
+  <a href="#" id="back-to-top" class="back-to-top-btn" aria-label="ページトップへ戻る">▲</a>
 </body>
 </html>
