@@ -2,6 +2,9 @@ document.addEventListener('DOMContentLoaded', function() {
     // Accordion functionality
     const accordionHeaders = document.querySelectorAll('.accordion-header');
     accordionHeaders.forEach(header => {
+        if (header.closest('.song-section')) {
+            return;
+        }
         header.addEventListener('click', () => {
             toggleAccordion(header);
         });

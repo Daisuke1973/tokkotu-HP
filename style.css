@@ -841,6 +841,10 @@ body::before {
 
 /* Responsive Design */
 @media (max-width: 768px) {
+    header .container {
+        flex-direction: column; /* 狭い画面では縦並びに */
+        gap: 15px;
+    }
     header h1 {
         font-size: 1.5rem;
     }
@@ -849,6 +853,8 @@ body::before {
     }
     nav a {
         padding: 0.8rem 1rem;
+        flex-basis: 33.33%; /* 3列になるように */
+        text-align: center;
     }
     .main-content {
         padding: 20px;
@@ -866,6 +872,48 @@ body::before {
     }
     .accordion-header-details {
         gap: 8px 15px;
+    }
+    .update-item.featured-update h3 {
+        font-size: 1.5rem;
+    }
+    .yakuin-table, .overview-table, .ayumi-table, .revision-history-table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+}
+
+/* For even smaller screens */
+@media (max-width: 480px) {
+    header h1 {
+        font-size: 1.3rem; /* さらにフォントを小さく */
+    }
+    nav a {
+        flex-basis: 50%; /* 2列にする */
+    }
+    .main-content {
+        padding: 15px;
+        margin: 15px auto;
+    }
+    .main-content h2, .section-title {
+        font-size: 1.4rem;
+    }
+    .update-item.featured-update {
+        padding: 20px;
+    }
+    .update-item.featured-update h3 {
+        font-size: 1.3rem;
+    }
+    .back-to-top-btn {
+        width: 40px;
+        height: 40px;
+        line-height: 40px;
+        font-size: 20px;
+        bottom: 15px;
+        right: 15px;
+    }
+    .modal-content {
+        width: 95%;
     }
 }
 
