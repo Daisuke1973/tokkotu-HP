@@ -35,14 +35,45 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Image Modal functionality
+    // Image Modal functionality + broken image fallback
     const modal = document.getElementById("imageModal");
     const modalImg = document.getElementById("img01");
     const images = document.querySelectorAll('.image-grid img, .image-gallery img');
     const closeBtn = document.querySelector(".modal .close");
 
+    // Track broken images per container to optionally show a placeholder text
+    const containerStats = new Map();
+    const getStat = (container) => {
+        if (!containerStats.has(container)) {
+            containerStats.set(container, { total: 0, error: 0, shownPlaceholder: false });
+        }
+        return containerStats.get(container);
+    };
+
     images.forEach(img => {
+        const container = img.closest('.image-grid, .image-gallery');
+        if (container) getStat(container).total++;
+
+        img.addEventListener('error', () => {
+            // Hide broken image
+            img.style.display = 'none';
+            if (container) {
+                const stat = getStat(container);
+                stat.error++;
+                if (!stat.shownPlaceholder && stat.error >= stat.total) {
+                    stat.shownPlaceholder = true;
+                    const note = document.createElement('div');
+                    note.textContent = '写真は準備中です';
+                    note.style.padding = '12px 0';
+                    note.style.color = '#666';
+                    note.style.fontSize = '0.95em';
+                    container.appendChild(note);
+                }
+            }
+        });
+
         img.onclick = function(){
+            if (!modal || !modalImg) return;
             modal.style.display = "block";
             modalImg.src = this.src;
         }
@@ -159,6 +190,94 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
                 }
             });
+        });
+    }
+
+    // Enhanced search/filter for pages that have #searchInput (e.g., yakuinkai2.html)
+    const searchInput = document.getElementById('searchInput');
+    if (searchInput) {
+        const accordionItems = Array.from(document.querySelectorAll('.accordion-item'));
+        const norm = (s) => (s || '')
+            .toString()
+            .normalize('NFKC')
+            .toLowerCase();
+
+        const textOf = (el) => (el && el.textContent) ? el.textContent.replace(/\s+/g, ' ') : '';
+
+        // Result info element
+        let resultInfo = document.getElementById('search-result-info');
+        if (!resultInfo) {
+            resultInfo = document.createElement('div');
+            resultInfo.id = 'search-result-info';
+            resultInfo.style.margin = '8px 0 0';
+            resultInfo.style.fontSize = '0.9em';
+            const container = searchInput.closest('.search-container') || searchInput.parentElement;
+            container && container.appendChild(resultInfo);
+        }
+
+        const scrollToElement = (el) => {
+            if (!el) return;
+            const nav = document.querySelector('nav');
+            const navHeight = nav ? nav.offsetHeight : 0;
+            const y = el.getBoundingClientRect().top + window.pageYOffset - navHeight - 16;
+            window.scrollTo({ top: y, behavior: 'smooth' });
+        };
+
+        const applyFilter = (q, opts = {}) => {
+            const qn = norm(q.trim());
+            let visibleCount = 0;
+            let firstMatch = null;
+
+            accordionItems.forEach((item) => {
+                const header = item.querySelector('.accordion-header');
+                const hay = norm(textOf(item));
+                const match = qn === '' || hay.includes(qn);
+                item.style.display = match ? '' : 'none';
+
+                // Open/close sections to make results obvious
+                if (header) {
+                    if (qn === '') {
+                        // Keep current state when query cleared
+                    } else if (match) {
+                        toggleAccordion(header, true);
+                        if (!firstMatch) firstMatch = header;
+                    } else {
+                        toggleAccordion(header, false);
+                    }
+                }
+
+                if (match) visibleCount++;
+            });
+
+            // Result info text
+            if (resultInfo) {
+                if (qn === '') {
+                    resultInfo.textContent = '';
+                } else if (visibleCount === 0) {
+                    resultInfo.textContent = '該当なし';
+                } else {
+                    resultInfo.textContent = `${visibleCount}件ヒット`;
+                }
+            }
+
+            // Optional scroll to first match
+            if (opts.scroll && firstMatch) {
+                scrollToElement(firstMatch);
+            }
+        };
+
+        let timer = null;
+        searchInput.addEventListener('input', (e) => {
+            if (timer) clearTimeout(timer);
+            const val = e.target.value;
+            timer = setTimeout(() => applyFilter(val, { scroll: true }), 150);
+        });
+
+        searchInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                applyFilter(searchInput.value, { scroll: true });
+            }
         });
     }
 });
