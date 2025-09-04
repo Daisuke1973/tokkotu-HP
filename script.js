@@ -72,11 +72,19 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
 
-        img.onclick = function(){
+        // Prefer opening the modal over following <a> navigation
+        img.addEventListener('click', (e) => {
             if (!modal || !modalImg) return;
+            e.preventDefault();
+            e.stopPropagation();
+
+            // If the image is wrapped by <a>, use its href (full-size) when present
+            const anchor = img.closest('a');
+            const targetSrc = (anchor && anchor.getAttribute('href')) ? anchor.getAttribute('href') : img.getAttribute('src');
+
+            modalImg.src = targetSrc;
             modal.style.display = "block";
-            modalImg.src = this.src;
-        }
+        });
     });
 
     if(closeBtn) {
