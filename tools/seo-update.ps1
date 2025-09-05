@@ -132,14 +132,21 @@ foreach ($f in $files) {
     $ogUrl = ($BaseUrl.TrimEnd('/')) + '/' + $pageRel
   }
 
-  # og:image: first <img> in body or default
+  # og:image selection priority:
+  # 1) First <img> in body  2) -DefaultOgImage  3) photo/og-default.jpg  4) photo/mark1.gif  5) none
   $imgMatch = [regex]::Match($bodyInner, '<img[^>]*src=["'']([^"'']+)["'']', 'IgnoreCase')
-  $imgSrc = if ($imgMatch.Success) { $imgMatch.Groups[1].Value } else { $DefaultOgImage }
-  if ($imgSrc) {
-    if ($imgSrc -notmatch '^https?://') {
+  $imgSrc = $null
+  if ($imgMatch.Success) { $imgSrc = $imgMatch.Groups[1].Value }
+  if (-not $imgSrc -and $DefaultOgImage) { $imgSrc = $DefaultOgImage }
+  if (-not $imgSrc -and (Test-Path 'photo/og-default.jpg')) { $imgSrc = 'photo/og-default.jpg' }
+  if (-not $imgSrc -and (Test-Path 'photo/og-default.png')) { $imgSrc = 'photo/og-default.png' }
+  if (-not $imgSrc -and (Test-Path 'photo/mark1.gif')) { $imgSrc = 'photo/mark1.gif' }
+  $imgAbs = $imgSrc
+  if ($imgAbs) {
+    if ($imgAbs -notmatch '^https?://') {
       if ($BaseUrl) {
-        if ($imgSrc.StartsWith('/')) { $imgSrc = $BaseUrl.TrimEnd('/') + $imgSrc }
-        else { $imgSrc = $BaseUrl.TrimEnd('/') + '/' + $imgSrc }
+        if ($imgAbs.StartsWith('/')) { $imgAbs = $BaseUrl.TrimEnd('/') + $imgAbs }
+        else { $imgAbs = $BaseUrl.TrimEnd('/') + '/' + $imgAbs }
       }
     }
   }
@@ -162,12 +169,15 @@ foreach ($f in $files) {
   $rebuilt += "  <meta property=`"og:title`" content=`"$(HtmlAttrEscape $ogTitle)`" />"
   $rebuilt += "  <meta property=`"og:description`" content=`"$finalDescEsc`" />"
   if ($ogUrl) { $rebuilt += "  <meta property=`"og:url`" content=`"$(HtmlAttrEscape $ogUrl)`" />" }
-  if ($imgSrc) { $rebuilt += "  <meta property=`"og:image`" content=`"$(HtmlAttrEscape $imgSrc)`" />" }
+  if ($imgAbs) { $rebuilt += "  <meta property=`"og:image`" content=`"$(HtmlAttrEscape $imgAbs)`" />" }
   # Twitter
-  $rebuilt += "  <meta name=`"twitter:card`" content=`"summary_large_image`" />"
+  $twCard = 'summary_large_image'
+  if ($imgAbs -and $imgAbs -match '\.(gif)$') { $twCard = 'summary' }
+  if (-not $imgAbs) { $twCard = 'summary' }
+  $rebuilt += "  <meta name=`"twitter:card`" content=`"$twCard`" />"
   $rebuilt += "  <meta name=`"twitter:title`" content=`"$(HtmlAttrEscape $ogTitle)`" />"
   $rebuilt += "  <meta name=`"twitter:description`" content=`"$finalDescEsc`" />"
-  if ($imgSrc) { $rebuilt += "  <meta name=`"twitter:image`" content=`"$(HtmlAttrEscape $imgSrc)`" />" }
+  if ($imgAbs) { $rebuilt += "  <meta name=`"twitter:image`" content=`"$(HtmlAttrEscape $imgAbs)`" />" }
   foreach ($l in $linkTags) { $rebuilt += "  $l" }
   $headInner = "`n" + ($rebuilt -join "`n") + "`n"
 
