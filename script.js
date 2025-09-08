@@ -10,27 +10,36 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
+    // Inline max-height control is disabled; rely on CSS class for expansion
+
     function toggleAccordion(header, open) {
         const accordionItem = header.parentElement;
         const accordionContent = header.nextElementSibling;
         const isActive = header.classList.contains('active');
 
-        if (open === true && !isActive) {
-            header.classList.add('active');
-            accordionContent.style.maxHeight = accordionContent.scrollHeight + "px";
+        const openSection = () => {
             accordionItem.classList.add('active');
-        } else if (open === false && isActive) {
-            header.classList.remove('active');
+            header.classList.add('active');
+            // Remove any inline override; CSS drives expansion to large max-height
             accordionContent.style.maxHeight = null;
+        };
+
+        const closeSection = () => {
+            header.classList.remove('active');
             accordionItem.classList.remove('active');
+            // Remove any inline override
+            accordionContent.style.maxHeight = null;
+        };
+
+        if (open === true && !isActive) {
+            openSection();
+        } else if (open === false && isActive) {
+            closeSection();
         } else if (open === undefined) {
-            header.classList.toggle('active');
-            if (accordionContent.style.maxHeight) {
-                accordionContent.style.maxHeight = null;
-                accordionItem.classList.remove('active');
+            if (isActive) {
+                closeSection();
             } else {
-                accordionContent.style.maxHeight = accordionContent.scrollHeight + "px";
-                accordionItem.classList.add('active');
+                openSection();
             }
         }
     }
@@ -70,6 +79,11 @@ document.addEventListener('DOMContentLoaded', function() {
                     container.appendChild(note);
                 }
             }
+        });
+
+        // When images load inside an open accordion, no inline height adjustments needed
+        img.addEventListener('load', () => {
+            // No-op: CSS active state uses a large max-height to avoid clipping
         });
 
         // Prefer opening the modal over following <a> navigation
@@ -200,6 +214,8 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     }
+
+    // No resize recalculation necessary when using CSS-only large max-height
 
     // Enhanced search/filter for pages that have #searchInput (e.g., yakuinkai2.html)
     const searchInput = document.getElementById('searchInput');
