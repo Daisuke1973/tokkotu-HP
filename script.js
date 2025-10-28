@@ -220,8 +220,14 @@ document.addEventListener('DOMContentLoaded', function() {
         const explicit = (sectionEl && sectionEl.dataset && sectionEl.dataset.audio) || (headerEl && headerEl.dataset && headerEl.dataset.audio);
         if (explicit) return explicit;
         const title = (headerEl && headerEl.textContent ? headerEl.textContent : '').trim();
-        if (title.includes('旭川中') && title.includes('校歌')) {
-            return 'music/旭中校歌.m4a';
+
+        // Heuristic mappings by header text
+        const rules = [
+            { includes: ['旭川中', '校歌'], src: 'music/旭中校歌.m4a' },
+            { includes: ['旭川東', '校歌'], src: 'music/旭川東高校歌.m4a' },
+        ];
+        for (const r of rules) {
+            if (r.includes.every(key => title.includes(key))) return r.src;
         }
         return null;
     }
