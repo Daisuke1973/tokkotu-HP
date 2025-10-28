@@ -75,125 +75,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // ---------------------------------------------
-    // Song-section (lyrics) accordion + audio control
-    // ---------------------------------------------
-    const songHeaders = document.querySelectorAll('.song-section .accordion-header');
-
-    // Track the currently playing audio to pause when switching
-    let currentSongAudio = null;
-    let currentSongSection = null;
-
-    const resolveSongAudioSrc = (sectionEl, headerEl) => {
-        // Priority 1: explicit data attribute on section or header
-        const explicit = sectionEl?.dataset?.audio || headerEl?.dataset?.audio;
-        if (explicit) return explicit;
-
-        // Priority 2: heuristic by header text (UTF-8 in browser)
-        const title = (headerEl?.textContent || '').trim();
-        // If the header contains both "旭川中" (Asahikawa JHS) and "校歌"
-        if (title.includes('旭川中') && title.includes('校歌')) {
-            return 'music/旭中校歌.m4a';
-        }
-
-        return null;
-    };
-
-    const pauseCurrentSong = () => {
-        if (currentSongAudio) {
-            try { currentSongAudio.pause(); } catch (_) {}
-        }
-        currentSongAudio = null;
-        currentSongSection = null;
-    };
-
-    const playSectionAudio = (sectionEl, headerEl) => {
-        const src = resolveSongAudioSrc(sectionEl, headerEl);
-        if (!src) return; // Nothing to play for this section
-
-        // Ensure one-at-a-time playback
-        if (currentSongSection && currentSongSection !== sectionEl) {
-            pauseCurrentSong();
-        }
-
-        // Reuse audio element per section to avoid multiple loads
-        let audio = sectionEl.__songAudio;
-        if (!audio) {
-            audio = new Audio(src);
-            audio.preload = 'none';
-            sectionEl.__songAudio = audio;
-        } else if (audio.src && !audio.src.endsWith(src)) {
-            // Source changed (e.g., attribute updated)
-            try { audio.pause(); } catch (_) {}
-            audio.src = src;
-        }
-
-        currentSongAudio = audio;
-        currentSongSection = sectionEl;
-
-        try {
-            audio.currentTime = 0;
-            // Playing in the click handler should be allowed by most browsers' gesture policy
-            audio.play().catch(() => {/* ignore autoplay rejection */});
-        } catch (_) {}
-    };
-
-    const toggleSongSection = (header) => {
-        const section = header.closest('.song-section');
-        if (!section) return;
-        const lyrics = header.nextElementSibling;
-        if (!lyrics || !lyrics.classList.contains('lyrics-content')) return;
-
-        const isActive = header.classList.contains('active');
-
-        if (isActive) {
-            // Close
-            header.classList.remove('active');
-            // Animate close similarly to generic behavior
-            const startHeight = lyrics.scrollHeight;
-            lyrics.style.maxHeight = startHeight + 'px';
-            void lyrics.offsetHeight; // reflow
-            lyrics.classList.remove('show');
-            lyrics.style.maxHeight = '0px';
-            const cleanup = () => {
-                lyrics.style.maxHeight = null;
-                lyrics.removeEventListener('transitionend', cleanup);
-            };
-            lyrics.addEventListener('transitionend', cleanup);
-
-            // Pause audio when closing this section
-            if (currentSongSection === section) pauseCurrentSong();
-        } else {
-            // Open
-            header.classList.add('active');
-            lyrics.classList.add('show');
-
-            // Ensure it expands smoothly
-            const computed = getComputedStyle(lyrics);
-            const currentlyZero = computed.maxHeight === '0px' || lyrics.offsetHeight === 0;
-            if (currentlyZero) {
-                lyrics.style.maxHeight = lyrics.scrollHeight + 'px';
-                const cleanup = () => {
-                    lyrics.style.maxHeight = null;
-                    lyrics.removeEventListener('transitionend', cleanup);
-                };
-                lyrics.addEventListener('transitionend', cleanup);
-            } else {
-                lyrics.style.maxHeight = null;
-            }
-
-            // Play the associated audio (if any)
-            playSectionAudio(section, header);
-        }
-    };
-
-    songHeaders.forEach(header => {
-        header.addEventListener('click', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            toggleSongSection(header);
-        });
-    });
+    // (removed earlier duplicate song-section handler; unified below)
 
     // Image Modal functionality + broken image fallback
     const modal = document.getElementById("imageModal");
@@ -331,6 +213,41 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+    // Song audio helpers
+    let currentSongAudio = null;
+    let currentSongSection = null;
+    function resolveSongAudioSrc(sectionEl, headerEl) {
+        const explicit = (sectionEl && sectionEl.dataset && sectionEl.dataset.audio) || (headerEl && headerEl.dataset && headerEl.dataset.audio);
+        if (explicit) return explicit;
+        const title = (headerEl && headerEl.textContent ? headerEl.textContent : '').trim();
+        if (title.includes('旭川中') && title.includes('校歌')) {
+            return 'music/旭中校歌.m4a';
+        }
+        return null;
+    }
+    function pauseCurrentSong() {
+        if (currentSongAudio) { try { currentSongAudio.pause(); } catch(_){} }
+        currentSongAudio = null;
+        currentSongSection = null;
+    }
+    function playSectionAudio(sectionEl, headerEl) {
+        const src = resolveSongAudioSrc(sectionEl, headerEl);
+        if (!src) return;
+        if (currentSongSection && currentSongSection !== sectionEl) pauseCurrentSong();
+        let audio = sectionEl.__songAudio;
+        if (!audio) {
+            audio = new Audio(src);
+            audio.preload = 'none';
+            sectionEl.__songAudio = audio;
+        } else if (audio.src && !audio.src.endsWith(src)) {
+            try { audio.pause(); } catch(_){ }
+            audio.src = src;
+        }
+        currentSongAudio = audio;
+        currentSongSection = sectionEl;
+        try { audio.currentTime = 0; audio.play().catch(()=>{}); } catch(_){ }
+    }
+
     // Song lyrics toggle
     const songHeaders = document.querySelectorAll('.song-section h3');
     songHeaders.forEach(header => {
@@ -341,10 +258,16 @@ document.addEventListener('DOMContentLoaded', function() {
                 content.style.maxHeight = '0px';
                 content.style.padding = '0 20px';
                 content.style.opacity = '0';
+                // Pause audio when closing
+                const section = this.closest('.song-section');
+                if (currentSongSection === section) pauseCurrentSong();
             } else {
                 content.style.padding = '20px';
                 content.style.opacity = '1';
                 content.style.maxHeight = content.scrollHeight + "px";
+                // Play audio when opening
+                const section = this.closest('.song-section');
+                playSectionAudio(section, this);
             }
         });
     });
