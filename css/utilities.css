@@ -1,0 +1,102 @@
+/* Utility Classes */
+/* 旭川東高等学校同窓会 札幌突兀会 */
+
+/* Info Box */
+.info-box {
+    background-color: #f8fafc;
+    border-left: 4px solid var(--accent-color);
+    padding: 20px 25px;
+    margin-bottom: 40px;
+    border-radius: 0 var(--border-radius) var(--border-radius) 0;
+}
+
+.info-box p:last-child {
+    margin-bottom: 0;
+}
+
+/* Kiji Footer */
+.kiji-footer {
+    text-align: right;
+    margin-top: 20px;
+    font-style: italic;
+    color: var(--secondary-color);
+}
+
+/* Link List */
+.link-list {
+    list-style: none;
+}
+
+.link-list li {
+    background: var(--surface-color);
+    margin-bottom: 15px;
+    border-radius: var(--border-radius);
+    border: 1px solid var(--light-border-color);
+    transition: all 0.2s ease;
+}
+
+.link-list li:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--accent-color);
+}
+
+.link-list li a {
+    text-decoration: none;
+    color: var(--primary-color);
+    font-weight: 600;
+    font-size: 1.1rem;
+    padding: 20px;
+    display: block;
+}
+
+/* Year Grid */
+.year-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 15px;
+}
+
+.year-grid-item {
+    background-color: var(--surface-color);
+    padding: 12px 18px;
+    border-radius: var(--border-radius);
+    border: 1px solid var(--light-border-color);
+    transition: all 0.2s ease;
+    text-align: center;
+}
+
+.year-grid-item:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--accent-color);
+}
+
+.year-grid-item a {
+    text-decoration: none;
+    color: var(--accent-color);
+    font-weight: 500;
+}
+
+/* Attribution */
+.attribution {
+    text-align: right;
+    font-size: 0.9em;
+    font-style: italic;
+    color: var(--secondary-color);
+    margin-top: -1em;
+    margin-bottom: 2em;
+}
+
+/* Screen Reader Only (for accessibility) */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}

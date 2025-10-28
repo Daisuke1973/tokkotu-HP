@@ -1,0 +1,157 @@
+/* Layout Components */
+/* 旭川東高等学校同窓会 札幌突兀会 */
+
+/* Container */
+.container {
+    max-width: 1100px;
+    margin: auto;
+    padding: 0 20px;
+}
+
+/* Skip Link for Accessibility */
+.skip-link {
+    position: absolute;
+    top: -40px;
+    left: 0;
+    background: var(--primary-color);
+    color: white;
+    padding: 8px 16px;
+    text-decoration: none;
+    z-index: 9999;
+    border-radius: 0 0 4px 0;
+}
+
+.skip-link:focus {
+    top: 0;
+}
+
+/* Header */
+header {
+    background: linear-gradient(to right, var(--surface-color), var(--background-color));
+    padding: 2rem 0;
+    border-bottom: 1px solid var(--light-border-color);
+    box-shadow: var(--shadow-md);
+}
+
+header .container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 25px;
+    flex-wrap: wrap;
+}
+
+.header-logo {
+    height: 70px;
+    flex-shrink: 0;
+}
+
+header h1 {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    text-align: center;
+    letter-spacing: 0.05em;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+}
+
+/* Navigation Bar */
+nav {
+    background: var(--primary-color);
+    padding: 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: var(--shadow-md);
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+nav a {
+    color: #ffffff;
+    text-decoration: none;
+    padding: 1rem 1.5rem;
+    transition: background-color 0.2s ease, color 0.2s ease;
+    font-weight: 500;
+    border-bottom: 4px solid transparent;
+    text-align: center;
+}
+
+nav a:hover {
+    background-color: var(--accent-color);
+}
+
+nav a.active {
+    font-weight: 700;
+    border-bottom-color: var(--accent-color);
+}
+
+/* Main Content */
+.main-content {
+    max-width: 980px;
+    width: 100%;
+    padding: 40px;
+    background: var(--surface-color);
+    margin: 40px auto;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-md);
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 2rem 1rem;
+    background: var(--primary-color);
+    color: var(--background-color);
+    margin-top: 40px;
+}
+
+footer p {
+    margin: 0;
+    color: var(--secondary-color);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    header .container {
+        flex-direction: column;
+        gap: 15px;
+    }
+    header h1 {
+        font-size: 1.5rem;
+    }
+    .header-logo {
+        height: 50px;
+    }
+    nav a {
+        padding: 0.8rem 1rem;
+        flex-basis: 33.33%;
+        text-align: center;
+    }
+    .main-content {
+        padding: 20px;
+        margin: 20px auto;
+    }
+    .main-content h2, .section-title {
+        font-size: 1.6rem;
+    }
+}
+
+@media (max-width: 480px) {
+    header h1 {
+        font-size: 1.3rem;
+    }
+    nav a {
+        flex-basis: 50%;
+    }
+    .main-content {
+        padding: 15px;
+        margin: 15px auto;
+    }
+    .main-content h2, .section-title {
+        font-size: 1.4rem;
+    }
+}

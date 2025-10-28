@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git -C \"C:\\code\" log --oneline -10)",
+      "Bash(powershell.exe -ExecutionPolicy Bypass -File \"C:\\code\\update-html-files.ps1\")",
+      "Bash(powershell.exe:*)",
+      "Bash(git -C \"C:\\code\" log --oneline --all -20)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

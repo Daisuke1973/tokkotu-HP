@@ -1,0 +1,496 @@
+/* Component Styles */
+/* 旭川東高等学校同窓会 札幌突兀会 */
+
+/* ========================================
+   Accordion Component
+   ======================================== */
+.accordion-item {
+    width: 100%;
+    border: 1px solid var(--light-border-color);
+    border-radius: var(--border-radius);
+    margin-bottom: 20px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.accordion-item:hover {
+    border-color: var(--accent-color);
+    box-shadow: var(--shadow-md);
+}
+
+.accordion-header {
+    background-color: var(--surface-color);
+    padding: 5px 25px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background-color 0.2s ease;
+    width: 100%;
+    margin: 0 !important;
+    border-left: none !important;
+    padding-left: 25px !important;
+    text-align: left;
+    position: relative;
+}
+
+.accordion-header.active {
+    background-color: #f8fafc;
+}
+
+.accordion-header-content {
+    flex-grow: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.accordion-header .date {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--secondary-color);
+    background-color: var(--background-color);
+    padding: 2px 6px;
+    border-radius: 10px;
+    flex-shrink: 0;
+}
+
+.accordion-header .title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-top: 0;
+    margin-bottom: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Use ::after instead of .accordion-icon for reliability */
+.accordion-header::after {
+    content: '+';
+    font-size: 2rem;
+    color: var(--secondary-color);
+    transition: transform 0.3s ease;
+    font-weight: 300;
+    flex-shrink: 0;
+    margin-left: 15px;
+}
+
+.accordion-header.active::after {
+    transform: rotate(45deg);
+}
+
+/* Hide accordion-icon if present */
+.accordion-icon {
+    display: none;
+}
+
+.accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease-in-out, padding 0.4s ease-in-out;
+    padding: 0 25px;
+    background-color: var(--surface-color);
+}
+
+.accordion-item.active .accordion-content {
+    padding: 20px;
+    border-top: 1px solid var(--light-border-color);
+    max-height: 99999px;
+}
+
+/* ========================================
+   Modal Component
+   ======================================== */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1001;
+    padding-top: 60px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.9);
+}
+
+.modal-content {
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 800px;
+    animation-name: zoom;
+    animation-duration: 0.6s;
+}
+
+@keyframes zoom {
+    from {transform:scale(0)}
+    to {transform:scale(1)}
+}
+
+.close {
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    transition: 0.3s;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0;
+}
+
+.close:hover,
+.close:focus {
+    color: #bbb;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* ========================================
+   Table of Contents Dropdown
+   ======================================== */
+.toc-dropdown {
+    position: relative;
+    margin-bottom: 30px;
+}
+
+.toc-toggle-btn {
+    width: 100%;
+    background-color: var(--primary-color);
+    color: white;
+    padding: 15px 20px;
+    border: none;
+    border-radius: var(--border-radius);
+    font-size: 1.2rem;
+    font-weight: 600;
+    font-family: var(--font-display);
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background-color 0.3s, box-shadow 0.3s;
+    box-shadow: var(--shadow-sm);
+}
+
+.toc-toggle-btn:hover {
+    background-color: #34495e;
+    box-shadow: var(--shadow-md);
+}
+
+.toc-icon {
+    width: 12px;
+    height: 12px;
+    border-right: 3px solid white;
+    border-bottom: 3px solid white;
+    transform: rotate(45deg);
+    transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.toc-toggle-btn.active .toc-icon {
+    transform: rotate(-135deg);
+    margin-top: 5px;
+}
+
+.toc-content {
+    background-color: var(--surface-color);
+    border: 1px solid var(--light-border-color);
+    border-radius: 0 0 var(--border-radius) var(--border-radius);
+    box-shadow: var(--shadow-md);
+    margin-top: -5px;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.5s ease-in-out, opacity 0.4s ease-in-out;
+    padding: 0 20px;
+}
+
+.toc-content.show {
+    opacity: 1;
+    padding: 20px;
+}
+
+.toc-content ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 12px;
+}
+
+.toc-content li a {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    text-decoration: none;
+    color: var(--text-color);
+    background-color: var(--background-color);
+    padding: 10px 15px;
+    border-radius: 5px;
+    transition: all 0.2s ease;
+    font-weight: 500;
+}
+
+.toc-content li a:hover {
+    background-color: var(--accent-color);
+    color: white;
+    transform: translateX(5px);
+}
+
+.toc-content .toc-date {
+    font-size: 0.85em;
+    font-weight: 600;
+    color: var(--secondary-color);
+}
+
+.toc-content li a:hover .toc-date {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+/* ========================================
+   Back to Top Button
+   ======================================== */
+.back-to-top-btn {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    display: none;
+    width: 50px;
+    height: 50px;
+    background-color: var(--accent-color);
+    color: white;
+    text-align: center;
+    line-height: 50px;
+    font-size: 24px;
+    border-radius: 50%;
+    text-decoration: none;
+    z-index: 1001;
+    box-shadow: var(--shadow-md);
+    transition: background-color 0.3s, transform 0.3s, opacity 0.3s;
+    opacity: 0.8;
+}
+
+.back-to-top-btn:hover {
+    background-color: var(--primary-color);
+    transform: translateY(-5px);
+    opacity: 1;
+}
+
+/* ========================================
+   Image Gallery and Grid
+   ======================================== */
+.image-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 15px;
+    margin-top: 30px;
+}
+
+.image-gallery img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    cursor: pointer;
+}
+
+.image-gallery img:hover {
+    transform: scale(1.03);
+    box-shadow: var(--shadow-md);
+}
+
+.image-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.image-grid img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+}
+
+.image-grid img:hover {
+    transform: scale(1.05);
+    box-shadow: var(--shadow-md);
+}
+
+/* ========================================
+   Tables
+   ======================================== */
+.overview-table, .ayumi-table, .revision-history-table, .yakuin-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 30px 0;
+    font-size: 1rem;
+    border: 1px solid var(--light-border-color);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+}
+
+.overview-table th, .ayumi-table th, .revision-history-table th, .yakuin-table th {
+    background-color: #f1f5f8;
+    padding: 15px;
+    text-align: left;
+    font-weight: 600;
+    color: var(--primary-color);
+    border-bottom: 2px solid var(--light-border-color);
+}
+
+.overview-table td, .ayumi-table td, .revision-history-table td, .yakuin-table td {
+    padding: 15px;
+    border-bottom: 1px solid var(--light-border-color);
+}
+
+.overview-table tbody tr:last-child td,
+.ayumi-table tbody tr:last-child td,
+.revision-history-table tbody tr:last-child td,
+.yakuin-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.overview-table tbody tr:nth-of-type(even),
+.ayumi-table tbody tr:nth-of-type(even),
+.yakuin-table tbody tr:nth-of-type(even) {
+    background-color: #f8fafc;
+}
+
+.yakuin-table tbody tr:hover {
+    background-color: #e9f5ff;
+}
+
+/* ========================================
+   Cards
+   ======================================== */
+.article-card, .news-item, .update-item {
+    background: var(--surface-color);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-sm);
+    padding: 30px;
+    margin-bottom: 30px;
+    border: 1px solid var(--light-border-color);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.article-card:hover, .news-item:hover, .update-item:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-md);
+}
+
+/* ========================================
+   Song Section
+   ======================================== */
+.song-section {
+    margin-bottom: 1.5em;
+    border: 1px solid var(--light-border-color);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+}
+
+.song-section h3 {
+    font-family: var(--font-sans);
+    font-size: 1.2rem;
+    color: var(--text-color);
+    margin: 0;
+    padding: 15px 20px;
+    cursor: pointer;
+    background-color: #f8fafc;
+    border: none;
+    border-left: none;
+    position: relative;
+}
+
+.song-section h3::after {
+    content: '+';
+    position: absolute;
+    right: 20px;
+    font-size: 1.5rem;
+    color: var(--secondary-color);
+    transition: transform 0.3s ease;
+}
+
+.song-section h3.active::after {
+    transform: rotate(45deg);
+}
+
+.lyrics-content {
+    padding: 0 20px;
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease-in-out, opacity 0.4s ease-in-out, padding 0.4s ease-in-out;
+}
+
+.lyrics-content.show {
+    padding: 20px;
+    opacity: 1;
+}
+
+/* ========================================
+   Search Container
+   ======================================== */
+.search-container {
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.search-container input[type="text"] {
+    width: 100%;
+    max-width: 400px;
+    padding: 12px 20px;
+    border: 1px solid var(--light-border-color);
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    color: var(--text-color);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.search-container input[type="text"]:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+}
+
+/* ========================================
+   Responsive Design
+   ======================================== */
+@media (max-width: 768px) {
+    .accordion-header {
+        padding: 15px 20px;
+    }
+    .overview-table, .ayumi-table, .revision-history-table, .yakuin-table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+}
+
+@media (max-width: 480px) {
+    .back-to-top-btn {
+        width: 40px;
+        height: 40px;
+        line-height: 40px;
+        font-size: 20px;
+        bottom: 15px;
+        right: 15px;
+    }
+    .modal-content {
+        width: 95%;
+    }
+}
