@@ -2,9 +2,8 @@ document.addEventListener('DOMContentLoaded', function() {
     // Accordion functionality
     const accordionHeaders = document.querySelectorAll('.accordion-header');
     accordionHeaders.forEach(header => {
-        if (header.closest('.song-section')) {
-            return;
-        }
+        // Skip song-section here; it has its own handler below
+        if (header.closest('.song-section')) return;
         header.addEventListener('click', (e) => {
             // Ensure any nested interactive elements don't navigate
             e.preventDefault();
@@ -75,6 +74,126 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
     }
+
+    // ---------------------------------------------
+    // Song-section (lyrics) accordion + audio control
+    // ---------------------------------------------
+    const songHeaders = document.querySelectorAll('.song-section .accordion-header');
+
+    // Track the currently playing audio to pause when switching
+    let currentSongAudio = null;
+    let currentSongSection = null;
+
+    const resolveSongAudioSrc = (sectionEl, headerEl) => {
+        // Priority 1: explicit data attribute on section or header
+        const explicit = sectionEl?.dataset?.audio || headerEl?.dataset?.audio;
+        if (explicit) return explicit;
+
+        // Priority 2: heuristic by header text (UTF-8 in browser)
+        const title = (headerEl?.textContent || '').trim();
+        // If the header contains both "旭川中" (Asahikawa JHS) and "校歌"
+        if (title.includes('旭川中') && title.includes('校歌')) {
+            return 'music/旭中校歌.m4a';
+        }
+
+        return null;
+    };
+
+    const pauseCurrentSong = () => {
+        if (currentSongAudio) {
+            try { currentSongAudio.pause(); } catch (_) {}
+        }
+        currentSongAudio = null;
+        currentSongSection = null;
+    };
+
+    const playSectionAudio = (sectionEl, headerEl) => {
+        const src = resolveSongAudioSrc(sectionEl, headerEl);
+        if (!src) return; // Nothing to play for this section
+
+        // Ensure one-at-a-time playback
+        if (currentSongSection && currentSongSection !== sectionEl) {
+            pauseCurrentSong();
+        }
+
+        // Reuse audio element per section to avoid multiple loads
+        let audio = sectionEl.__songAudio;
+        if (!audio) {
+            audio = new Audio(src);
+            audio.preload = 'none';
+            sectionEl.__songAudio = audio;
+        } else if (audio.src && !audio.src.endsWith(src)) {
+            // Source changed (e.g., attribute updated)
+            try { audio.pause(); } catch (_) {}
+            audio.src = src;
+        }
+
+        currentSongAudio = audio;
+        currentSongSection = sectionEl;
+
+        try {
+            audio.currentTime = 0;
+            // Playing in the click handler should be allowed by most browsers' gesture policy
+            audio.play().catch(() => {/* ignore autoplay rejection */});
+        } catch (_) {}
+    };
+
+    const toggleSongSection = (header) => {
+        const section = header.closest('.song-section');
+        if (!section) return;
+        const lyrics = header.nextElementSibling;
+        if (!lyrics || !lyrics.classList.contains('lyrics-content')) return;
+
+        const isActive = header.classList.contains('active');
+
+        if (isActive) {
+            // Close
+            header.classList.remove('active');
+            // Animate close similarly to generic behavior
+            const startHeight = lyrics.scrollHeight;
+            lyrics.style.maxHeight = startHeight + 'px';
+            void lyrics.offsetHeight; // reflow
+            lyrics.classList.remove('show');
+            lyrics.style.maxHeight = '0px';
+            const cleanup = () => {
+                lyrics.style.maxHeight = null;
+                lyrics.removeEventListener('transitionend', cleanup);
+            };
+            lyrics.addEventListener('transitionend', cleanup);
+
+            // Pause audio when closing this section
+            if (currentSongSection === section) pauseCurrentSong();
+        } else {
+            // Open
+            header.classList.add('active');
+            lyrics.classList.add('show');
+
+            // Ensure it expands smoothly
+            const computed = getComputedStyle(lyrics);
+            const currentlyZero = computed.maxHeight === '0px' || lyrics.offsetHeight === 0;
+            if (currentlyZero) {
+                lyrics.style.maxHeight = lyrics.scrollHeight + 'px';
+                const cleanup = () => {
+                    lyrics.style.maxHeight = null;
+                    lyrics.removeEventListener('transitionend', cleanup);
+                };
+                lyrics.addEventListener('transitionend', cleanup);
+            } else {
+                lyrics.style.maxHeight = null;
+            }
+
+            // Play the associated audio (if any)
+            playSectionAudio(section, header);
+        }
+    };
+
+    songHeaders.forEach(header => {
+        header.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            toggleSongSection(header);
+        });
+    });
 
     // Image Modal functionality + broken image fallback
     const modal = document.getElementById("imageModal");

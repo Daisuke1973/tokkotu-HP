@@ -430,6 +430,11 @@ nav a.active {
     padding: 20px;
     opacity: 1;
 }
+/* Keep lyrics expanded while header is active */
+.song-section h3.accordion-header.active + .lyrics-content {
+    /* Large max-height to accommodate content growth */
+    max-height: 99999px;
+}
 .lyrics-content ol {
     padding-left: 20px;
     margin-left: 20px;
