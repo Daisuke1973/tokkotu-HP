@@ -225,6 +225,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const rules = [
             { includes: ['旭川中', '校歌'], src: 'music/旭中校歌.m4a' },
             { includes: ['旭川東', '校歌'], src: 'music/旭川東高校歌.m4a' },
+            { includes: ['旭川東', '逍遥歌'], src: 'music/旭川東高校逍遥歌.mp3' },
         ];
         for (const r of rules) {
             if (r.includes.every(key => title.includes(key))) return r.src;
