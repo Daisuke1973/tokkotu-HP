@@ -5,7 +5,9 @@ document.addEventListener('DOMContentLoaded', function() {
         if (header.closest('.song-section')) {
             return;
         }
-        header.addEventListener('click', () => {
+        header.addEventListener('click', (e) => {
+            // Ensure any nested interactive elements don't navigate
+            e.preventDefault();
             toggleAccordion(header);
         });
     });
@@ -15,20 +17,50 @@ document.addEventListener('DOMContentLoaded', function() {
     function toggleAccordion(header, open) {
         const accordionItem = header.parentElement;
         const accordionContent = header.nextElementSibling;
+        if (!accordionItem || !accordionContent) return;
+
         const isActive = header.classList.contains('active');
 
         const openSection = () => {
+            // Add classes first (preferred CSS-driven expand)
             accordionItem.classList.add('active');
             header.classList.add('active');
-            // Remove any inline override; CSS drives expansion to large max-height
-            accordionContent.style.maxHeight = null;
+
+            // Fallback: if for any reason the section doesn't expand,
+            // set an inline max-height to the current content height to ensure opening,
+            // then clean it up after the transition so CSS can take over.
+            const computed = getComputedStyle(accordionContent);
+            const currentlyZero = computed.maxHeight === '0px' || accordionContent.offsetHeight === 0;
+            if (currentlyZero) {
+                accordionContent.style.maxHeight = accordionContent.scrollHeight + 'px';
+                const cleanup = () => {
+                    accordionContent.style.maxHeight = null;
+                    accordionContent.removeEventListener('transitionend', cleanup);
+                };
+                accordionContent.addEventListener('transitionend', cleanup);
+            } else {
+                // Ensure no stale inline value remains
+                accordionContent.style.maxHeight = null;
+            }
         };
 
         const closeSection = () => {
+            // Animate close robustly: set explicit height, then collapse
+            const startHeight = accordionContent.scrollHeight;
+            accordionContent.style.maxHeight = startHeight + 'px';
+            // Force reflow to apply the starting height
+            void accordionContent.offsetHeight;
+
             header.classList.remove('active');
             accordionItem.classList.remove('active');
-            // Remove any inline override
-            accordionContent.style.maxHeight = null;
+
+            accordionContent.style.maxHeight = '0px';
+
+            const cleanup = () => {
+                accordionContent.style.maxHeight = null;
+                accordionContent.removeEventListener('transitionend', cleanup);
+            };
+            accordionContent.addEventListener('transitionend', cleanup);
         };
 
         if (open === true && !isActive) {
@@ -49,6 +81,74 @@ document.addEventListener('DOMContentLoaded', function() {
     const modalImg = document.getElementById("img01");
     const images = document.querySelectorAll('.image-grid img, .image-gallery img');
     const closeBtn = document.querySelector(".modal .close");
+
+    // Track the element that opened the modal for focus restoration
+    let modalTriggerElement = null;
+
+    // Focusable elements for focus trap
+    const getFocusableElements = () => {
+        if (!modal) return [];
+        return Array.from(modal.querySelectorAll(
+            'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+        )).filter(el => !el.hasAttribute('disabled'));
+    };
+
+    // Focus trap for modal
+    const handleModalKeydown = (e) => {
+        if (e.key === 'Escape') {
+            closeModal();
+            return;
+        }
+
+        if (e.key === 'Tab') {
+            const focusableElements = getFocusableElements();
+            if (focusableElements.length === 0) return;
+
+            const firstElement = focusableElements[0];
+            const lastElement = focusableElements[focusableElements.length - 1];
+
+            if (e.shiftKey && document.activeElement === firstElement) {
+                e.preventDefault();
+                lastElement.focus();
+            } else if (!e.shiftKey && document.activeElement === lastElement) {
+                e.preventDefault();
+                firstElement.focus();
+            }
+        }
+    };
+
+    // Open modal function
+    const openModal = (src, triggerElement) => {
+        if (!modal || !modalImg) return;
+        modalTriggerElement = triggerElement;
+        modalImg.src = src;
+        modal.style.display = "block";
+        if (modal.setAttribute) modal.setAttribute('aria-hidden', 'false');
+
+        // Focus the close button when modal opens
+        if (closeBtn) {
+            setTimeout(() => closeBtn.focus(), 100);
+        }
+
+        // Add keyboard event listener
+        document.addEventListener('keydown', handleModalKeydown);
+    };
+
+    // Close modal function
+    const closeModal = () => {
+        if (!modal) return;
+        modal.style.display = "none";
+        if (modal.setAttribute) modal.setAttribute('aria-hidden', 'true');
+
+        // Remove keyboard event listener
+        document.removeEventListener('keydown', handleModalKeydown);
+
+        // Restore focus to the element that opened the modal
+        if (modalTriggerElement) {
+            modalTriggerElement.focus();
+            modalTriggerElement = null;
+        }
+    };
 
     // Track broken images per container to optionally show a placeholder text
     const containerStats = new Map();
@@ -96,20 +196,19 @@ document.addEventListener('DOMContentLoaded', function() {
             const anchor = img.closest('a');
             const targetSrc = (anchor && anchor.getAttribute('href')) ? anchor.getAttribute('href') : img.getAttribute('src');
 
-            modalImg.src = targetSrc;
-            modal.style.display = "block";
+            openModal(targetSrc, img);
         });
     });
 
     if(closeBtn) {
         closeBtn.onclick = function() {
-            modal.style.display = "none";
+            closeModal();
         }
     }
 
     window.onclick = function(event) {
         if (event.target == modal) {
-            modal.style.display = "none";
+            closeModal();
         }
     }
 

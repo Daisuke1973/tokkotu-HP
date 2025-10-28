@@ -17,7 +17,8 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header>
+  <a href="#main" class="skip-link">メインコンテンツへスキップ</a>
+    <header role="banner">
         <div class="container">
             <img src="photo/mark1.gif" alt="札幌突兀会 ロゴ" class="header-logo">
             <div>
@@ -25,7 +26,7 @@
             </div>
         </div>
     </header>
-    <nav>
+    <nav role="navigation" aria-label="荳ｻ隕√リ繝薙ご繝ｼ繧ｷ繝ｧ繝ｳ">
     <a href="index.html">トップページ</a>
     <a href="gaiyo.html">概要</a>
     <a href="soukai.html">総会・懇親会</a>
@@ -39,6 +40,7 @@
     <a href="kouka.html">校歌</a>
     <a href="links.html">リンク</a>
 </nav>
+    <main id="main" role="main">
     <div class="container">
         <div class="main-content">
             <h2>校歌・応援歌・逍遥歌</h2>
@@ -95,7 +97,9 @@
 
         </div>
     </div>
-    <footer>
+    </main>
+
+    <footer role="contentinfo">
         <div class="container">
             <p>&copy; 2025 旭川東高同窓会 札幌突兀会</p>
         </div>

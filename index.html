@@ -14,27 +14,28 @@
   <meta name="twitter:title" content="旭川東高等学校同窓会札幌突兀会" />
   <meta name="twitter:description" content="同窓会の公式サイト。最新情報やイベントの案内を掲載しています。" />
   <meta name="twitter:image" content="photo/mark1.gif" />
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css">
   <link rel="icon" href="photo/mark1.gif" type="image/gif" />
 </head>
 <body>
-  <header>
+  <a href="#main" class="skip-link">メインコンテンツへスキップ</a>
+  <header role="banner">
     <div class="container">
       <img
         src="photo/mark1.gif"
-        alt="同窓会 ロゴ"
+        alt="旭川東高等学校同窓会札幌突兀会 ロゴ"
         class="header-logo"
         width="128"
         height="128"
         decoding="async"
       />
       <div>
-        <h1>同窓会 公式サイト</h1>
+        <h1>旭川東高等学校同窓会 札幌突兀会</h1>
       </div>
     </div>
   </header>
 
-  <nav aria-label="主要ナビゲーション">
+  <nav role="navigation" aria-label="主要ナビゲーション">
     <a href="index.html" aria-current="page">トップページ</a>
     <a href="gaiyo.html">概要</a>
     <a href="soukai.html">総会・懇親会</a>
@@ -49,10 +50,10 @@
     <a href="links.html">リンク</a>
   </nav>
 
-  <main id="main">
+  <main id="main" role="main" aria-label="メインコンテンツ">
     <div class="container">
-      <section class="latest-updates-section">
-        <h2 class="section-title">お知らせ</h2>
+      <section class="latest-updates-section" aria-labelledby="news-heading">
+        <h2 id="news-heading" class="section-title">最新のお知らせ</h2>
         <div class="updates-list">
           <article class="update-item featured-update">
             <p class="date"><time datetime="2025-09-04">2025年9月4日</time></p>
@@ -67,7 +68,7 @@
     </div>
   </main>
 
-  <footer>
+  <footer role="contentinfo">
     <div class="container">
       <p>&copy; 2025 旭川東高同窓会 札幌突兀会</p>
     </div>

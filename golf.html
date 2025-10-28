@@ -18,7 +18,8 @@
   <link rel="icon" href="photo/mark1.gif" type="image/gif">
 </head>
 <body>
-    <header>
+  <a href="#main" class="skip-link">メインコンテンツへスキップ</a>
+    <header role="banner">
         <div class="container">
             <img src="photo/mark1.gif" alt="札幌突兀会 ロゴ" class="header-logo">
             <div>
@@ -26,7 +27,7 @@
             </div>
         </div>
     </header>
-    <nav>
+    <nav role="navigation" aria-label="荳ｻ隕√リ繝薙ご繝ｼ繧ｷ繝ｧ繝ｳ">
     <a href="index.html">トップページ</a>
     <a href="gaiyo.html">概要</a>
     <a href="soukai.html">総会・懇親会</a>
@@ -40,6 +41,7 @@
     <a href="kouka.html">校歌</a>
     <a href="links.html">リンク</a>
 </nav>
+    <main id="main" role="main">
     <div class="container">
         <div class="main-content">
             <h2>ゴルフ部会便り</h2>
@@ -806,16 +808,19 @@
 
         </div>
     </div>
-    <footer>
+    </main>
+
+    <footer role="contentinfo">
         <div class="container">
             <p>&copy; 2025 旭川東高同窓会 札幌突兀会</p>
         </div>
     </footer>
 
     <!-- The Modal -->
-    <div id="imageModal" class="modal">
-        <span class="close">&times;</span>
-        <img class="modal-content" id="img01">
+    <div id="imageModal" class="modal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="modal-title">
+        <h2 id="modal-title" class="sr-only">逕ｻ蜒乗僑螟ｧ陦ｨ遉ｺ</h2>
+        <button class="close" aria-label="繝｢繝ｼ繝繝ｫ繧帝哩縺倥ｋ">&times;</button>
+        <img class="modal-content" id="img01" alt="拡大画像">
     </div>
   <script src="script.js"></script>
   <a href="#" id="back-to-top" class="back-to-top-btn" aria-label="ページトップへ戻る">▲</a>
