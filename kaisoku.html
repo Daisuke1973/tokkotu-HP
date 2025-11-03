@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
@@ -14,7 +14,31 @@
   <meta name="twitter:title" content="旭川東高等学校同窓会 札幌突兀会 ｜ 旭川東高等学校同窓会札幌突兀会" />
   <meta name="twitter:description" content="昭和36年4月28日施行" />
   <meta name="twitter:image" content="photo/mark1.gif" />
+  <!-- Preconnect to Google Fonts for faster loading -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- Load Google Fonts asynchronously -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@700&family=Noto+Sans+JP:wght@400;500;700&display=swap" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@700&family=Noto+Sans+JP:wght@400;500;700&display=swap"></noscript>
   <link rel="stylesheet" href="style.css">
+
+  <!-- Structured Data: Organization -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "譌ｭ蟾晄擲鬮倡ｭ牙ｭｦ譬｡蜷檎ｪ謎ｼ・譛ｭ蟷檎ｪ∝・莨・,
+    "url": "https://yourdomain.jp",
+    "logo": "https://yourdomain.jp/photo/mark1.gif",
+    "foundingDate": "1960"
+  }
+  </script>
+<link rel="icon" href="/photo/mark1.gif" type="image/gif">
+  <link rel="apple-touch-icon" href="/photo/mark1.gif">
+  <link rel="shortcut icon" href="/photo/mark1.gif">
+  <meta name="msapplication-TileImage" content="/photo/mark1.gif">
+  <meta name="msapplication-TileColor" content="#2c3e50">
+  <meta name="theme-color" content="#2c3e50">
 </head>
 <body>
   <a href="#main" class="skip-link">メインコンテンツへスキップ</a>
@@ -26,7 +50,11 @@
             </div>
         </div>
     </header>
-    <nav role="navigation" aria-label="荳ｻ隕√リ繝薙ご繝ｼ繧ｷ繝ｧ繝ｳ">
+    <button class="mobile-menu-toggle" aria-label="メニューを開く" aria-expanded="false">
+    <span class="hamburger-icon"></span>
+    <span style="margin-left: 10px;">メニュー</span>
+  </button>
+  <nav role="navigation" aria-label="主要ナビゲーション">
     <a href="index.html">トップページ</a>
     <a href="gaiyo.html">概要</a>
     <a href="soukai.html">総会・懇親会</a>

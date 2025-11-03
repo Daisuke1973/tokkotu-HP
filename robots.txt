@@ -1,0 +1,36 @@
+# robots.txt for 旭川東高等学校同窓会 札幌突兀会
+# Generated: 2025-11-03
+
+# Allow all search engines
+User-agent: *
+Allow: /
+
+# Disallow temporary or draft files
+Disallow: /temp/
+Disallow: /draft/
+Disallow: /_*
+
+# Disallow PowerShell scripts and tools
+Disallow: /*.ps1$
+
+# Crawl-delay (optional, adjust if needed)
+# Crawl-delay: 1
+
+# Sitemap location
+Sitemap: https://yourdomain.jp/sitemap.xml
+
+# Allow common search engines specifically
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Slurp
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
+User-agent: Baiduspider
+Allow: /
