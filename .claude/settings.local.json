@@ -5,7 +5,11 @@
       "Bash(powershell.exe -ExecutionPolicy Bypass -File \"C:\\code\\update-html-files.ps1\")",
       "Bash(powershell.exe:*)",
       "Bash(git -C \"C:\\code\" log --oneline --all -20)",
-      "Bash(rm:*)"
+      "Bash(rm:*)",
+      "Bash(python:*)",
+      "Bash(git -C \"C:\\code\" diff --stat)",
+      "Bash(git -C \"C:\\code\" diff --stat yakuin.html sotsugyo.html links.html)",
+      "Bash(git -C \"C:\\code\" diff --stat index.html)"
     ],
     "deny": [],
     "ask": []
