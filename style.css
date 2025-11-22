@@ -676,6 +676,24 @@ footer p {
     transform: rotate(45deg);
 }
 
+.music-notice {
+    font-size: 0.75rem;
+    color: #d32f2f;
+    font-weight: 500;
+    margin-left: 10px;
+    white-space: normal;
+    display: inline-block;
+}
+
+@media (max-width: 768px) {
+    .music-notice {
+        font-size: 0.7rem;
+        display: block;
+        margin-left: 0;
+        margin-top: 5px;
+    }
+}
+
 .accordion-content {
     max-height: 0;
     overflow: hidden;
