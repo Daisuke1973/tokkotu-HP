@@ -17,7 +17,7 @@ Disallow: /*.ps1$
 # Crawl-delay: 1
 
 # Sitemap location
-Sitemap: https://yourdomain.jp/sitemap.xml
+Sitemap: https://tokkotu.jp/sitemap.xml
 
 # Allow common search engines specifically
 User-agent: Googlebot

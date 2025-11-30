@@ -11,8 +11,8 @@ $organizationSchema = @'
     "@type": "Organization",
     "name": "旭川東高等学校同窓会 札幌突兀会",
     "alternateName": "札幌突兀会",
-    "url": "https://yourdomain.jp",
-    "logo": "https://yourdomain.jp/photo/mark1.gif",
+    "url": "https://tokkotu.jp",
+    "logo": "https://tokkotu.jp/photo/mark1.gif",
     "foundingDate": "1960",
     "description": "旭川東高等学校同窓会の札幌支部。札幌市および近郊に住む旭川中学・旭川東高校の卒業生・在籍者で構成される同窓会組織。",
     "address": {

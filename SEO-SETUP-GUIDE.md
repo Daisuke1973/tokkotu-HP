@@ -20,19 +20,19 @@
 
 ### ステップ 1: ドメインの置き換え
 
-**重要:** 現在、両ファイルには仮のドメイン `https://yourdomain.jp` が使用されています。
+**重要:** 現在、両ファイルには仮のドメイン `https://tokkotu.jp` が使用されています。
 
 #### 実際のドメインに置換:
 
 ```powershell
 # PowerShellで一括置換
 $domain = "https://実際のドメイン.jp"
-(Get-Content sitemap.xml) -replace 'https://yourdomain.jp', $domain | Set-Content sitemap.xml
-(Get-Content robots.txt) -replace 'https://yourdomain.jp', $domain | Set-Content robots.txt
+(Get-Content sitemap.xml) -replace 'https://tokkotu.jp', $domain | Set-Content sitemap.xml
+(Get-Content robots.txt) -replace 'https://tokkotu.jp', $domain | Set-Content robots.txt
 ```
 
 または、テキストエディタで手動置換（Ctrl+H）:
-- 検索: `https://yourdomain.jp`
+- 検索: `https://tokkotu.jp`
 - 置換: `https://実際のドメイン.jp`
 
 ---

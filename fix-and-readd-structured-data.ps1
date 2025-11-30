@@ -22,8 +22,8 @@ foreach ($file in $htmlFiles) {
         "@type": "Organization",
         "name": "旭川東高等学校同窓会 札幌突兀会",
         "alternateName": "札幌突兀会",
-        "url": "https://yourdomain.jp",
-        "logo": "https://yourdomain.jp/photo/mark1.gif",
+        "url": "https://tokkotu.jp",
+        "logo": "https://tokkotu.jp/photo/mark1.gif",
         "foundingDate": "1960",
         "description": "旭川東高等学校同窓会の札幌支部。札幌市および近郊に住む旭川中学・旭川東高校の卒業生で構成される同窓会組織。",
         "address": {
@@ -36,7 +36,7 @@ foreach ($file in $htmlFiles) {
       {
         "@type": "WebSite",
         "name": "旭川東高等学校同窓会 札幌突兀会",
-        "url": "https://yourdomain.jp",
+        "url": "https://tokkotu.jp",
         "description": "同窓会の公式サイト。最新情報やイベントの案内を掲載しています。"
       }
     ]
@@ -54,14 +54,14 @@ foreach ($file in $htmlFiles) {
       {
         "@type": "Organization",
         "name": "旭川東高等学校同窓会 札幌突兀会",
-        "url": "https://yourdomain.jp",
-        "logo": "https://yourdomain.jp/photo/mark1.gif"
+        "url": "https://tokkotu.jp",
+        "logo": "https://tokkotu.jp/photo/mark1.gif"
       },
       {
         "@type": "CollectionPage",
         "name": "会報",
         "description": "旭川東高等学校同窓会札幌突兀会の会報アーカイブ。総会や懇親会の報告を掲載しています。",
-        "url": "https://yourdomain.jp/kaihou.html"
+        "url": "https://tokkotu.jp/kaihou.html"
       }
     ]
   }
@@ -78,8 +78,8 @@ foreach ($file in $htmlFiles) {
       {
         "@type": "Organization",
         "name": "旭川東高等学校同窓会 札幌突兀会",
-        "url": "https://yourdomain.jp",
-        "logo": "https://yourdomain.jp/photo/mark1.gif",
+        "url": "https://tokkotu.jp",
+        "logo": "https://tokkotu.jp/photo/mark1.gif",
         "foundingDate": "1960",
         "numberOfMembers": 4000
       },
@@ -87,7 +87,7 @@ foreach ($file in $htmlFiles) {
         "@type": "AboutPage",
         "name": "概要",
         "description": "札幌突兀会の名前の由来、設立年、会員数などの概要情報。",
-        "url": "https://yourdomain.jp/gaiyo.html"
+        "url": "https://tokkotu.jp/gaiyo.html"
       }
     ]
   }
@@ -103,8 +103,8 @@ foreach ($file in $htmlFiles) {
     "@context": "https://schema.org",
     "@type": "Organization",
     "name": "旭川東高等学校同窓会 札幌突兀会",
-    "url": "https://yourdomain.jp",
-    "logo": "https://yourdomain.jp/photo/mark1.gif",
+    "url": "https://tokkotu.jp",
+    "logo": "https://tokkotu.jp/photo/mark1.gif",
     "foundingDate": "1960"
   }
   </script>

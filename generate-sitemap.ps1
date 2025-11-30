@@ -1,5 +1,5 @@
 # Generate sitemap.xml for SEO
-$baseUrl = "https://yourdomain.jp"
+$baseUrl = "https://tokkotu.jp"
 $htmlFiles = Get-ChildItem -Path "C:\code" -Filter "*.html" | Sort-Object Name
 
 # Page priority and change frequency configuration
