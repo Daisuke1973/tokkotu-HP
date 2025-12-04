@@ -477,4 +477,24 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
+
+    // URLハッシュに基づいてアコーディオンを開く
+    if (window.location.hash) {
+        const targetId = window.location.hash.substring(1);
+        const targetElement = document.getElementById(targetId);
+        if (targetElement && targetElement.classList.contains('accordion-item')) {
+            const header = targetElement.querySelector('.accordion-header');
+            if (header) {
+                // アコーディオンを開く
+                toggleAccordion(header, true);
+                // スクロール位置を調整
+                setTimeout(() => {
+                    const nav = document.querySelector('nav');
+                    const navHeight = nav ? nav.offsetHeight : 0;
+                    const y = targetElement.getBoundingClientRect().top + window.pageYOffset - navHeight - 20;
+                    window.scrollTo({ top: y, behavior: 'smooth' });
+                }, 300);
+            }
+        }
+    }
 });
