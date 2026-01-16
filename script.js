@@ -478,6 +478,171 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    // Kaihou list search/filter/sort (kaihou-list.html)
+    const kaihouTable = document.querySelector('.kaihou-list-table');
+    if (kaihouTable) {
+        const searchField = document.getElementById('kaihou-search');
+        const issueSelect = document.getElementById('kaihou-issue');
+        const yearSelect = document.getElementById('kaihou-year');
+        const categorySelect = document.getElementById('kaihou-category');
+        const sortSelect = document.getElementById('kaihou-sort');
+        const resetButton = document.getElementById('kaihou-reset');
+        const resultInfo = document.getElementById('kaihou-result-info');
+        const tbody = kaihouTable.querySelector('tbody');
+        const rows = Array.from(tbody.querySelectorAll('tr'));
+
+        const norm = (s) => (s || '')
+            .toString()
+            .normalize('NFKC')
+            .toLowerCase();
+        const getText = (cell) => (cell && cell.textContent ? cell.textContent.trim() : '');
+        const parseIssue = (val) => {
+            const match = (val || '').match(/(\d+)/);
+            return match ? parseInt(match[1], 10) : 0;
+        };
+        const parseYear = (val) => {
+            const paren = (val || '').match(/[（(]([0-9]{4})[)）]/);
+            if (paren) return parseInt(paren[1], 10);
+            const fallback = (val || '').match(/(\d{4})/);
+            return fallback ? parseInt(fallback[1], 10) : 0;
+        };
+
+        const rowData = rows.map((row) => {
+            const cells = row.querySelectorAll('td');
+            const issue = getText(cells[0]);
+            const year = getText(cells[1]);
+            const category = getText(cells[2]);
+            const title = getText(cells[3]);
+            const author = getText(cells[4]);
+            const role = getText(cells[5]);
+            return {
+                row,
+                issue,
+                year,
+                category,
+                title,
+                author,
+                role,
+                issueValue: parseIssue(issue),
+                yearValue: parseYear(year),
+                searchText: norm([issue, year, category, title, author, role].join(' '))
+            };
+        });
+
+        const linkIssueCells = () => {
+            rowData.forEach((item) => {
+                const issueCell = item.row.querySelector('td:first-child');
+                if (!issueCell || issueCell.querySelector('a')) return;
+                if (!item.yearValue) return;
+                const link = document.createElement('a');
+                link.href = `kaihou.html#kaihou-${item.yearValue}`;
+                link.textContent = item.issue;
+                link.className = 'kaihou-issue-link';
+                issueCell.textContent = '';
+                issueCell.appendChild(link);
+            });
+        };
+
+        const unique = (list) => Array.from(new Set(list)).filter(Boolean);
+        const fillSelect = (select, values) => {
+            if (!select) return;
+            while (select.options.length > 1) select.remove(1);
+            values.forEach((value) => {
+                const option = document.createElement('option');
+                option.value = value;
+                option.textContent = value;
+                select.appendChild(option);
+            });
+        };
+
+        const issues = unique(rowData.map((d) => d.issue)).sort((a, b) => parseIssue(a) - parseIssue(b));
+        const years = unique(rowData.map((d) => d.year)).sort((a, b) => parseYear(b) - parseYear(a));
+        const categories = unique(rowData.map((d) => d.category)).sort((a, b) => a.localeCompare(b, 'ja'));
+        fillSelect(issueSelect, issues);
+        fillSelect(yearSelect, years);
+        fillSelect(categorySelect, categories);
+
+        const compareRows = (a, b, mode) => {
+            switch (mode) {
+                case 'year-asc':
+                    return a.yearValue - b.yearValue || a.issueValue - b.issueValue;
+                case 'issue-desc':
+                    return b.issueValue - a.issueValue || b.yearValue - a.yearValue;
+                case 'issue-asc':
+                    return a.issueValue - b.issueValue || a.yearValue - b.yearValue;
+                case 'category':
+                    return a.category.localeCompare(b.category, 'ja') || b.yearValue - a.yearValue || b.issueValue - a.issueValue;
+                case 'year-desc':
+                default:
+                    return b.yearValue - a.yearValue || b.issueValue - a.issueValue;
+            }
+        };
+
+        const applySort = () => {
+            const mode = sortSelect ? sortSelect.value : 'year-desc';
+            const sorted = rowData.slice().sort((a, b) => compareRows(a, b, mode));
+            sorted.forEach((item) => tbody.appendChild(item.row));
+        };
+
+        const updateResultInfo = (visibleCount) => {
+            if (!resultInfo) return;
+            const total = rowData.length;
+            if (visibleCount === 0) {
+                resultInfo.textContent = `該当なし（全${total}件）`;
+            } else {
+                resultInfo.textContent = `全${total}件中 ${visibleCount}件表示`;
+            }
+        };
+
+        const applyFilter = () => {
+            const query = norm(searchField ? searchField.value.trim() : '');
+            const issue = issueSelect ? issueSelect.value : '';
+            const year = yearSelect ? yearSelect.value : '';
+            const category = categorySelect ? categorySelect.value : '';
+            let visibleCount = 0;
+
+            rowData.forEach((item) => {
+                const matchQuery = !query || item.searchText.includes(query);
+                const matchIssue = !issue || item.issue === issue;
+                const matchYear = !year || item.year === year;
+                const matchCategory = !category || item.category === category;
+                const match = matchQuery && matchIssue && matchYear && matchCategory;
+                item.row.style.display = match ? '' : 'none';
+                if (match) visibleCount++;
+            });
+
+            updateResultInfo(visibleCount);
+        };
+
+        const resetFilters = () => {
+            if (searchField) searchField.value = '';
+            if (issueSelect) issueSelect.value = '';
+            if (yearSelect) yearSelect.value = '';
+            if (categorySelect) categorySelect.value = '';
+            if (sortSelect) sortSelect.value = 'year-desc';
+            applySort();
+            applyFilter();
+        };
+
+        if (searchField) {
+            searchField.addEventListener('input', () => {
+                applyFilter();
+            });
+        }
+        if (issueSelect) issueSelect.addEventListener('change', applyFilter);
+        if (yearSelect) yearSelect.addEventListener('change', applyFilter);
+        if (categorySelect) categorySelect.addEventListener('change', applyFilter);
+        if (sortSelect) sortSelect.addEventListener('change', () => {
+            applySort();
+            applyFilter();
+        });
+        if (resetButton) resetButton.addEventListener('click', resetFilters);
+
+        linkIssueCells();
+        applySort();
+        applyFilter();
+    }
+
     // URLハッシュに基づいてアコーディオンを開く
     if (window.location.hash) {
         const targetId = window.location.hash.substring(1);
