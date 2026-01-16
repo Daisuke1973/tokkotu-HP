@@ -901,6 +901,78 @@ body::before {
     text-decoration: underline;
 }
 
+/* Kaihou list mobile table layout */
+@media (max-width: 720px) {
+    .kaihou-list-controls .search-container label {
+        max-width: none;
+    }
+
+    .kaihou-list-controls .search-container input[type="text"] {
+        max-width: none;
+    }
+
+    .filter-toolbar {
+        align-items: stretch;
+    }
+
+    .filter-group {
+        min-width: 0;
+        flex: 1 1 160px;
+    }
+
+    .filter-button {
+        width: 100%;
+    }
+
+    .kaihou-list-table {
+        display: block;
+        overflow: visible;
+        white-space: normal;
+        border: none;
+        box-shadow: none;
+    }
+
+    .kaihou-list-table thead {
+        display: none;
+    }
+
+    .kaihou-list-table tbody {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+    }
+
+    .kaihou-list-table tbody tr {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 6px;
+        padding: 16px;
+        border-radius: var(--border-radius);
+        border: 1px solid var(--light-border-color);
+        background: var(--surface-color);
+        box-shadow: var(--shadow-sm);
+    }
+
+    .kaihou-list-table tbody tr:nth-of-type(even) {
+        background: var(--surface-color);
+    }
+
+    .kaihou-list-table td {
+        display: grid;
+        grid-template-columns: 90px 1fr;
+        gap: 12px;
+        padding: 6px 0;
+        border: none;
+        word-break: break-word;
+    }
+
+    .kaihou-list-table td::before {
+        content: attr(data-label);
+        font-weight: 600;
+        color: var(--secondary-color);
+    }
+}
+
 /* Image Gallery for Soukai Page */
 .image-gallery {
     display: grid;

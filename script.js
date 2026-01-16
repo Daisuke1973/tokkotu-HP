@@ -529,6 +529,18 @@ document.addEventListener('DOMContentLoaded', function() {
             };
         });
 
+        const applyDataLabels = () => {
+            const headerLabels = Array.from(kaihouTable.querySelectorAll('thead th'))
+                .map((th) => (th.textContent || '').trim());
+            rows.forEach((row) => {
+                row.querySelectorAll('td').forEach((cell, idx) => {
+                    if (!cell.getAttribute('data-label')) {
+                        cell.setAttribute('data-label', headerLabels[idx] || '');
+                    }
+                });
+            });
+        };
+
         const linkIssueCells = () => {
             rowData.forEach((item) => {
                 const issueCell = item.row.querySelector('td:first-child');
@@ -638,6 +650,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
         if (resetButton) resetButton.addEventListener('click', resetFilters);
 
+        applyDataLabels();
         linkIssueCells();
         applySort();
         applyFilter();
