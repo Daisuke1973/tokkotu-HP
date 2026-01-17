@@ -951,6 +951,7 @@ body::before {
         border: 1px solid var(--light-border-color);
         background: var(--surface-color);
         box-shadow: var(--shadow-sm);
+        min-width: 0;
     }
 
     .kaihou-list-table tbody tr:nth-of-type(even) {
@@ -959,17 +960,20 @@ body::before {
 
     .kaihou-list-table td {
         display: grid;
-        grid-template-columns: 90px 1fr;
+        grid-template-columns: minmax(0, 90px) minmax(0, 1fr);
         gap: 12px;
         padding: 6px 0;
         border: none;
         word-break: break-word;
+        overflow-wrap: anywhere;
+        min-width: 0;
     }
 
     .kaihou-list-table td::before {
         content: attr(data-label);
         font-weight: 600;
         color: var(--secondary-color);
+        min-width: 0;
     }
 }
 
@@ -1144,7 +1148,10 @@ body::before {
     .update-item.featured-update h3 {
         font-size: 1.5rem;
     }
-    .yakuin-table, .overview-table, .ayumi-table, .revision-history-table {
+    .yakuin-table,
+    .overview-table:not(.kaihou-list-table),
+    .ayumi-table,
+    .revision-history-table {
         display: block;
         overflow-x: auto;
         white-space: nowrap;
