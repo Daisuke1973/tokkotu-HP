@@ -106,9 +106,16 @@ document.addEventListener('DOMContentLoaded', function() {
     const modalImg = document.getElementById("img01");
     const images = document.querySelectorAll('.image-grid img, .image-gallery img');
     const closeBtn = document.querySelector(".modal .close");
+    const prevBtn = document.querySelector(".modal-prev");
+    const nextBtn = document.querySelector(".modal-next");
+    const modalCounter = document.getElementById("modal-counter");
 
     // Track the element that opened the modal for focus restoration
     let modalTriggerElement = null;
+
+    // Track current image index and current image group for navigation
+    let currentImageIndex = 0;
+    let currentImageGroup = [];
 
     // Focusable elements for focus trap
     const getFocusableElements = () => {
@@ -122,6 +129,18 @@ document.addEventListener('DOMContentLoaded', function() {
     const handleModalKeydown = (e) => {
         if (e.key === 'Escape') {
             closeModal();
+            return;
+        }
+
+        // Arrow key navigation
+        if (e.key === 'ArrowLeft') {
+            e.preventDefault();
+            navigateImage(-1);
+            return;
+        }
+        if (e.key === 'ArrowRight') {
+            e.preventDefault();
+            navigateImage(1);
             return;
         }
 
@@ -142,13 +161,66 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     };
 
+    // Navigate to previous/next image
+    const navigateImage = (direction) => {
+        if (currentImageGroup.length <= 1) return;
+
+        currentImageIndex += direction;
+
+        // Loop around
+        if (currentImageIndex < 0) {
+            currentImageIndex = currentImageGroup.length - 1;
+        } else if (currentImageIndex >= currentImageGroup.length) {
+            currentImageIndex = 0;
+        }
+
+        const targetImg = currentImageGroup[currentImageIndex];
+        const anchor = targetImg.closest('a');
+        const targetSrc = (anchor && anchor.getAttribute('href')) ? anchor.getAttribute('href') : targetImg.getAttribute('src');
+
+        modalImg.src = targetSrc;
+        modalTriggerElement = targetImg;
+        updateCounter();
+    };
+
+    // Update modal counter display
+    const updateCounter = () => {
+        if (modalCounter && currentImageGroup.length > 1) {
+            modalCounter.textContent = `${currentImageIndex + 1} / ${currentImageGroup.length}`;
+            modalCounter.style.display = 'block';
+        } else if (modalCounter) {
+            modalCounter.style.display = 'none';
+        }
+    };
+
+    // Update navigation button visibility
+    const updateNavButtons = () => {
+        if (prevBtn) prevBtn.style.display = currentImageGroup.length > 1 ? 'block' : 'none';
+        if (nextBtn) nextBtn.style.display = currentImageGroup.length > 1 ? 'block' : 'none';
+    };
+
     // Open modal function
     const openModal = (src, triggerElement) => {
         if (!modal || !modalImg) return;
         modalTriggerElement = triggerElement;
         modalImg.src = src;
+
+        // Find the image group (all images in the same container)
+        const container = triggerElement.closest('.image-grid, .image-gallery');
+        if (container) {
+            currentImageGroup = Array.from(container.querySelectorAll('img')).filter(img => img.style.display !== 'none');
+            currentImageIndex = currentImageGroup.indexOf(triggerElement);
+            if (currentImageIndex === -1) currentImageIndex = 0;
+        } else {
+            currentImageGroup = [triggerElement];
+            currentImageIndex = 0;
+        }
+
         modal.style.display = "block";
         if (modal.setAttribute) modal.setAttribute('aria-hidden', 'false');
+
+        updateCounter();
+        updateNavButtons();
 
         // Focus the close button when modal opens
         if (closeBtn) {
@@ -228,6 +300,21 @@ document.addEventListener('DOMContentLoaded', function() {
     if(closeBtn) {
         closeBtn.onclick = function() {
             closeModal();
+        }
+    }
+
+    // Navigation button handlers
+    if (prevBtn) {
+        prevBtn.onclick = function(e) {
+            e.stopPropagation();
+            navigateImage(-1);
+        }
+    }
+
+    if (nextBtn) {
+        nextBtn.onclick = function(e) {
+            e.stopPropagation();
+            navigateImage(1);
         }
     }
 

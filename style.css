@@ -1090,6 +1090,49 @@ body::before {
     cursor: pointer;
 }
 
+/* Modal Navigation Buttons */
+.modal-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff;
+    border: none;
+    padding: 16px 12px;
+    font-size: 24px;
+    cursor: pointer;
+    transition: background 0.3s;
+    z-index: 1002;
+    display: none;
+}
+
+.modal-nav:hover,
+.modal-nav:focus {
+    background: rgba(255, 255, 255, 0.4);
+    outline: none;
+}
+
+.modal-prev {
+    left: 10px;
+}
+
+.modal-next {
+    right: 10px;
+}
+
+.modal-counter {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #fff;
+    font-size: 16px;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 8px 16px;
+    border-radius: 4px;
+    display: none;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     header .container {
@@ -1189,6 +1232,21 @@ body::before {
     }
     .modal-content {
         width: 95%;
+    }
+    .modal-nav {
+        padding: 12px 8px;
+        font-size: 20px;
+    }
+    .modal-prev {
+        left: 5px;
+    }
+    .modal-next {
+        right: 5px;
+    }
+    .modal-counter {
+        font-size: 14px;
+        padding: 6px 12px;
+        bottom: 10px;
     }
 }
 
