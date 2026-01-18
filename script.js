@@ -615,6 +615,62 @@ document.addEventListener('DOMContentLoaded', function() {
                 searchText: norm([issue, year, category, title, author, role].join(' '))
             };
         });
+        const rowDataByRow = new Map(rowData.map((item) => [item.row, item]));
+        const groupRowClass = 'kaihou-issue-row';
+        const columnCount = kaihouTable.querySelectorAll('thead th').length;
+
+        const clearIssueGroupRows = () => {
+            tbody.querySelectorAll(`tr.${groupRowClass}`).forEach((row) => row.remove());
+        };
+
+        const buildIssueGroupRows = () => {
+            clearIssueGroupRows();
+            const orderedRows = Array.from(tbody.querySelectorAll('tr'))
+                .filter((row) => !row.classList.contains(groupRowClass));
+            const visibleRows = orderedRows.filter((row) => row.style.display !== 'none');
+            if (!visibleRows.length) return;
+
+            const issueCounts = new Map();
+            visibleRows.forEach((row) => {
+                const data = rowDataByRow.get(row);
+                if (!data) return;
+                issueCounts.set(data.issue, (issueCounts.get(data.issue) || 0) + 1);
+            });
+
+            let lastIssue = null;
+            visibleRows.forEach((row) => {
+                const data = rowDataByRow.get(row);
+                if (!data) return;
+                if (data.issue !== lastIssue) {
+                    const groupRow = document.createElement('tr');
+                    groupRow.className = groupRowClass;
+                    const th = document.createElement('th');
+                    th.colSpan = columnCount;
+                    th.scope = 'rowgroup';
+
+                    const issueChip = document.createElement('span');
+                    issueChip.className = 'kaihou-issue-chip';
+                    issueChip.textContent = data.issue;
+                    th.appendChild(issueChip);
+
+                    if (data.year) {
+                        const yearMeta = document.createElement('span');
+                        yearMeta.className = 'kaihou-issue-meta';
+                        yearMeta.textContent = data.year;
+                        th.appendChild(yearMeta);
+                    }
+
+                    const countLabel = document.createElement('span');
+                    countLabel.className = 'kaihou-issue-count';
+                    countLabel.textContent = `${issueCounts.get(data.issue) || 0}件`;
+                    th.appendChild(countLabel);
+
+                    groupRow.appendChild(th);
+                    row.before(groupRow);
+                    lastIssue = data.issue;
+                }
+            });
+        };
 
         const applyDataLabels = () => {
             const headerLabels = Array.from(kaihouTable.querySelectorAll('thead th'))
@@ -678,6 +734,7 @@ document.addEventListener('DOMContentLoaded', function() {
         };
 
         const applySort = () => {
+            clearIssueGroupRows();
             const mode = sortSelect ? sortSelect.value : 'year-desc';
             const sorted = rowData.slice().sort((a, b) => compareRows(a, b, mode));
             sorted.forEach((item) => tbody.appendChild(item.row));
@@ -711,6 +768,7 @@ document.addEventListener('DOMContentLoaded', function() {
             });
 
             updateResultInfo(visibleCount);
+            buildIssueGroupRows();
         };
 
         const resetFilters = () => {
