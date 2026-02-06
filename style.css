@@ -29,7 +29,7 @@ html {
 
 body {
     font-family: var(--font-sans);
-    line-height: 1.7;
+    line-height: 1.8;
     background-color: var(--background-color);
     color: var(--text-color);
     -webkit-font-smoothing: antialiased;
@@ -44,10 +44,9 @@ body {
 
 /* Header & Title */
 header {
-    background: linear-gradient(to right, var(--surface-color), var(--background-color)); /* Subtle gradient */
-    padding: 2rem 0; /* Increased padding for more space */
+    background: var(--surface-color);
+    padding: 1.5rem 0;
     border-bottom: 1px solid var(--light-border-color);
-    box-shadow: var(--shadow-md); /* Add a subtle shadow */
 }
 
 header .container {
@@ -65,13 +64,11 @@ header .container {
 
 header h1 {
     margin: 0;
-    font-family: 'Montserrat', sans-serif; /* Use a more modern display font */
-    font-size: 2.2rem; /* Slightly larger */
+    font-family: var(--font-display), 'Noto Sans JP', sans-serif;
+    font-size: 2rem;
     font-weight: 700;
-    color: var(--primary-color); /* Keep primary color */
+    color: var(--primary-color);
     text-align: center;
-    letter-spacing: 0.05em; /* Add some letter spacing */
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.05); /* Subtle text shadow */
 }
 
 /* Navigation Bar */
@@ -179,7 +176,7 @@ nav a.active {
 }
 
 .main-content h2 {
-    font-family: var(--font-display);
+    font-family: var(--font-display), 'Noto Sans JP', sans-serif;
     font-weight: 700;
     color: var(--primary-color);
     border-bottom: 3px solid var(--accent-color);
@@ -191,7 +188,7 @@ nav a.active {
 }
 
 .main-content h3 {
-    font-family: var(--font-display);
+    font-family: var(--font-display), 'Noto Sans JP', sans-serif;
     font-weight: 700;
     color: var(--primary-color);
     margin-top: 1em;
@@ -293,7 +290,7 @@ nav a.active {
 }
 
 .section-title {
-    font-family: var(--font-display);
+    font-family: var(--font-display), 'Noto Sans JP', sans-serif;
     font-weight: 700;
     color: var(--primary-color);
     border-bottom: 3px solid var(--accent-color);
@@ -596,6 +593,7 @@ footer p {
     background-color: var(--surface-color);
     padding: 5px 25px;
     cursor: pointer;
+    position: relative;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -663,17 +661,23 @@ footer p {
 }
 
 .accordion-header::after {
-    content: '+';
-    font-size: 2rem;
-    color: var(--secondary-color);
-    transition: transform 0.3s ease;
-    font-weight: 300;
-    flex-shrink: 0;
-    margin-left: 15px;
+    display: none;
 }
 
-.accordion-header.active::after {
-    transform: rotate(45deg);
+.accordion-icon {
+    position: absolute;
+    right: 25px;
+    top: 50%;
+    width: 12px;
+    height: 12px;
+    border-right: 2px solid var(--secondary-color);
+    border-bottom: 2px solid var(--secondary-color);
+    transform: translateY(-75%) rotate(45deg);
+    transition: transform 0.3s ease;
+}
+
+.accordion-header.active .accordion-icon {
+    transform: translateY(-25%) rotate(-135deg);
 }
 
 .music-notice {
@@ -703,7 +707,6 @@ footer p {
 }
 
 .accordion-item.active .accordion-content {
-    padding: 20px;
     padding: 20px;
     border-top: 1px solid var(--light-border-color);
     /* Ensure fully expanded sections are not clipped even as content grows */
@@ -1075,11 +1078,11 @@ body::before {
 
 .image-grid img {
     width: 100%;
-    height: 150px;
+    height: 180px;
     object-fit: cover;
     border-radius: var(--border-radius);
     box-shadow: var(--shadow-sm);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
     cursor: pointer;
 }
 
@@ -1333,7 +1336,7 @@ body::before {
 
 .article-header h3 {
     margin: 0 0 10px 0;
-    font-family: var(--font-display);
+    font-family: var(--font-display), 'Noto Sans JP', sans-serif;
     font-weight: 700;
     color: var(--primary-color);
     font-size: 1.6rem;
@@ -1434,197 +1437,6 @@ details summary {
     background-color: #e9f5ff;
 }
 
-/* =================================================== */
-/* === デザイン改善のための追記CSS（最低限の修正） === */
-/* =================================================== */
-
-/* 1. 全体の読みやすさ向上（フォントと行間） */
-body {
-    line-height: 1.8; /* 行間を広げて長文を読みやすく */
-}
-
-/* 既存の見出しフォント指定を活かしつつ日本語を補強 */
-.main-content h2, .main-content h3, .article-header h3 {
-    font-family: var(--font-display), 'Noto Sans JP', sans-serif;
-}
-
-
-/* 2. アコーディオンのデザイン改善 */
-.accordion-header {
-    position: relative; /* アイコンを配置する基準 */
-    /* 元のafter要素（"+"マーク）を非表示にする */
-}
-.accordion-header::after {
-    display: none;
-}
-
-/* アイコン（HTMLで <span class="accordion-icon"></span> を追加した要素）のスタイル */
-.accordion-icon {
-    position: absolute;
-    right: 25px;
-    top: 50%;
-    width: 12px;
-    height: 12px;
-    border-right: 2px solid var(--secondary-color);
-    border-bottom: 2px solid var(--secondary-color);
-    transform: translateY(-50%) rotate(45deg); /* 下向き矢印の形 */
-    transition: transform 0.3s ease;
-}
-
-/* アコーディオンが開いた時（.active）のアイコンを回転させる */
-.accordion-header.active .accordion-icon {
-    transform: translateY(-50%) rotate(-135deg); /* 上向き矢印の形 */
-}
-
-/* 3. 写真ギャラリー（image-grid）の見栄え向上 */
-.image-grid img {
-    height: 180px; /* 高さを統一 */
-    object-fit: cover; /* 画像の比率を保ったまま領域を埋める */
-    transition: transform 0.3s ease, box-shadow 0.3s ease; /* アニメーションを滑らかに */
-}
-
-/* 写真にマウスを乗せた時の効果 */
-.image-grid img:hover {
-    transform: scale(1.05); /* 少し拡大 */
-    box-shadow: var(--shadow-md); /* 影を少し濃くする */
-}
-/* style.css の中身はこれです */
-
-/* Google Fonts are loaded in HTML <head> for better performance */
-
-/* Modern CSS Reset */
-*, *::before, *::after {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
-/* Global Styles & New Color Palette */
-:root {
-    --primary-color: #2c3e50; /* Midnight Blue */
-    --secondary-color: #8695a7; /* Cool Gray */
-    --accent-color: #3498db; /* Peter River Blue */
-    --background-color: #f4f7f9; /* Very Light Gray */
-    --surface-color: #ffffff; /* White */
-    --text-color: #34495e; /* Wet Asphalt */
-    --light-border-color: #e1e5e8;
-    --font-sans: 'Inter', 'Noto Sans JP', sans-serif;
-    --font-display: 'Montserrat', sans-serif;
-    --shadow-sm: 0 2px 4px rgba(0,0,0,0.05);
-    --shadow-md: 0 5px 15px rgba(0,0,0,0.08);
-    --border-radius: 8px;
-}
-
-body {
-    font-family: var(--font-sans);
-    line-height: 1.8; /* 改善点: 行間を広げて読みやすく */
-    background-color: var(--background-color);
-    color: var(--text-color);
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-}
-
-.container {
-    max-width: 1100px;
-    margin: auto;
-    padding: 0 20px;
-}
-
-/* Header & Title */
-header {
-    background: var(--surface-color);
-    padding: 1.5rem 0;
-    border-bottom: 1px solid var(--light-border-color);
-}
-
-header .container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 25px;
-    flex-wrap: wrap;
-}
-
-.header-logo {
-    height: 70px;
-    flex-shrink: 0;
-}
-
-header h1 {
-    margin: 0;
-    font-family: var(--font-display);
-    font-size: 2rem;
-    font-weight: 700;
-    color: var(--primary-color);
-    text-align: center;
-}
-
-/* Navigation Bar */
-nav {
-    background: var(--primary-color);
-    padding: 0;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    box-shadow: var(--shadow-md);
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-}
-
-nav a {
-    color: #ffffff;
-    text-decoration: none;
-    padding: 1rem 1.5rem;
-    transition: background-color 0.2s ease, color 0.2s ease;
-    font-weight: 500;
-    border-bottom: 4px solid transparent;
-    text-align: center;
-}
-
-nav a:hover {
-    background-color: var(--accent-color);
-}
-
-nav a.active {
-    font-weight: 700;
-    border-bottom-color: var(--accent-color);
-}
-
-/* Main Content Card */
-.main-content {
-    max-width: 980px;
-    width: 100%;
-    padding: 40px;
-    background: var(--surface-color);
-    margin: 40px auto;
-    border-radius: var(--border-radius);
-    box-shadow: var(--shadow-md);
-}
-
-.main-content h2, .section-title {
-    font-family: var(--font-display), 'Noto Sans JP', sans-serif; /* 日本語フォント補強 */
-    font-weight: 700;
-    color: var(--primary-color);
-    border-bottom: 3px solid var(--accent-color);
-    padding-bottom: 15px;
-    margin-top: 0;
-    margin-bottom: 40px;
-    text-align: center;
-    font-size: 2rem;
-}
-
-.main-content h3 {
-    font-family: var(--font-display), 'Noto Sans JP', sans-serif; /* 日本語フォント補強 */
-    font-weight: 700;
-    color: var(--primary-color);
-    margin-top: 1em;
-    margin-bottom: 0.5em;
-    padding-left: 15px;
-    border-left: 4px solid var(--accent-color);
-}
-
-/* ... (他のCSSコードは省略) ... */
 
 /* Table of Contents Dropdown */
 .toc-dropdown {
@@ -1729,11 +1541,6 @@ nav a.active {
     font-weight: 500;
 }
 
-
-/* =================================================== */
-/* === ayumi.html 改善のためのCSS追記 ================= */
-/* =================================================== */
-
 /* 1. 説明リスト(<dl>)のスタイル調整 */
 .ayumi-details {
   display: flex;
@@ -1750,56 +1557,6 @@ nav a.active {
 .ayumi-details dd {
   margin-left: 0;
 }
-
-/* 2. アコーディオンのアイコンデザイン改善 */
-.accordion-header {
-    position: relative;
-    cursor: pointer;
-}
-.accordion-header::after { /* 元の"+"マークは不要なので非表示に */
-    display: none;
-}
-
-.accordion-icon {
-    position: absolute;
-    right: 25px;
-    top: 50%;
-    width: 12px;
-    height: 12px;
-    border-right: 2px solid var(--secondary-color);
-    border-bottom: 2px solid var(--secondary-color);
-    transform: translateY(-75%) rotate(45deg); /* 下向き矢印 */
-    transition: transform 0.3s ease;
-}
-
-.accordion-header.active .accordion-icon {
-    transform: translateY(-25%) rotate(-135deg); /* 上向き矢印 */
-}
-
-/* 3. Search container for ayumi.html */
-.search-container {
-    margin-bottom: 30px;
-    text-align: center;
-}
-
-.search-container input[type="text"] {
-    width: 100%;
-    max-width: 400px;
-    padding: 12px 20px;
-    border: 1px solid var(--light-border-color);
-    border-radius: var(--border-radius);
-    font-size: 1rem;
-    color: var(--text-color);
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
-}
-
-.search-container input[type="text"]:focus {
-    outline: none;
-    border-color: var(--accent-color);
-    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
-}
-
-/* (以下、他のCSSコードが続く) */
 
 /* Back to Top Button */
 .back-to-top-btn {

@@ -9,7 +9,8 @@
       "Bash(python:*)",
       "Bash(git -C \"C:\\code\" diff --stat)",
       "Bash(git -C \"C:\\code\" diff --stat yakuin.html sotsugyo.html links.html)",
-      "Bash(git -C \"C:\\code\" diff --stat index.html)"
+      "Bash(git -C \"C:\\code\" diff --stat index.html)",
+      "Bash(find:*)"
     ],
     "deny": [],
     "ask": []

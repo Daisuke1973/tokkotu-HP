@@ -801,6 +801,11 @@ document.addEventListener('DOMContentLoaded', function() {
         applyFilter();
     }
 
+    // Dynamic copyright year
+    document.querySelectorAll('.copyright-year').forEach(function(el) {
+        el.textContent = new Date().getFullYear();
+    });
+
     // URLハッシュに基づいてアコーディオンを開く
     if (window.location.hash) {
         const targetId = window.location.hash.substring(1);
