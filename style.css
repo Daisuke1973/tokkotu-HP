@@ -538,17 +538,6 @@ footer p {
     color: var(--secondary-color);
 }
 
-.visit-counter-text {
-    margin-top: 10px;
-    font-size: 0.95rem;
-}
-
-.visit-counter-value {
-    font-variant-numeric: tabular-nums;
-    color: #ffffff;
-    font-weight: 700;
-}
-
 /* Styles for ayumi.html event cards */
 .event-cards-container {
     display: grid;
