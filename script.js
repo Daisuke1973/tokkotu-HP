@@ -1,3 +1,6 @@
+// Mark JS availability so CSS can provide a no-JS fallback menu.
+document.documentElement.classList.add('js-enabled');
+
 document.addEventListener('DOMContentLoaded', function() {
     // Mobile menu toggle
     const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
@@ -805,6 +808,75 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll('.copyright-year').forEach(function(el) {
         el.textContent = new Date().getFullYear();
     });
+
+    // Top page visit counter (CounterAPI)
+    const counterEl = document.getElementById('visit-counter-total');
+    if (counterEl) {
+        const namespace = counterEl.dataset.counterNamespace || 'tokkotu';
+        const key = counterEl.dataset.counterKey || 'topvisits';
+        const sessionBaseKey = `counterapi:${namespace}:${key}`;
+        const sessionFlagKey = `${sessionBaseKey}:incremented`;
+        const sessionValueKey = `${sessionBaseKey}:value`;
+
+        const setCounterValue = (value) => {
+            counterEl.textContent = new Intl.NumberFormat('ja-JP').format(value);
+        };
+
+        const toNumber = (value) => {
+            if (typeof value === 'number' && Number.isFinite(value)) return value;
+            if (typeof value === 'string' && /^\d+$/.test(value)) return Number(value);
+            return null;
+        };
+
+        const findCountInObject = (obj) => {
+            if (!obj || typeof obj !== 'object') return null;
+            const keys = ['up_count', 'count', 'Count', 'value', 'current', 'total', 'hits', 'visits'];
+            for (const keyName of keys) {
+                const count = toNumber(obj[keyName]);
+                if (count !== null) return count;
+            }
+            return null;
+        };
+
+        const readCountFromResponse = (payload) => {
+            const direct = findCountInObject(payload);
+            if (direct !== null) return direct;
+
+            const nestedKeys = ['data', 'result', 'meta'];
+            for (const nestedKey of nestedKeys) {
+                const nested = findCountInObject(payload ? payload[nestedKey] : null);
+                if (nested !== null) return nested;
+            }
+            return null;
+        };
+
+        const cachedValue = toNumber(sessionStorage.getItem(sessionValueKey));
+        const alreadyIncremented = sessionStorage.getItem(sessionFlagKey) === '1';
+        if (alreadyIncremented && cachedValue !== null) {
+            setCounterValue(cachedValue);
+        } else {
+            const endpoint = `https://api.counterapi.dev/v1/${encodeURIComponent(namespace)}/${encodeURIComponent(key)}/up`;
+            fetch(endpoint, {
+                method: 'GET',
+                headers: { 'Accept': 'application/json' },
+                cache: 'no-store'
+            })
+                .then((response) => {
+                    if (!response.ok) throw new Error(`Counter API error: ${response.status}`);
+                    return response.json();
+                })
+                .then((payload) => {
+                    const count = readCountFromResponse(payload);
+                    if (count === null) throw new Error('Counter value not found');
+                    setCounterValue(count);
+                    sessionStorage.setItem(sessionFlagKey, '1');
+                    sessionStorage.setItem(sessionValueKey, String(count));
+                })
+                .catch(() => {
+                    counterEl.textContent = '取得できませんでした';
+                });
+        }
+    }
 
     // URLハッシュに基づいてアコーディオンを開く
     if (window.location.hash) {

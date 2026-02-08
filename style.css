@@ -538,6 +538,17 @@ footer p {
     color: var(--secondary-color);
 }
 
+.visit-counter-text {
+    margin-top: 10px;
+    font-size: 0.95rem;
+}
+
+.visit-counter-value {
+    font-variant-numeric: tabular-nums;
+    color: #ffffff;
+    font-weight: 700;
+}
+
 /* Styles for ayumi.html event cards */
 .event-cards-container {
     display: grid;
@@ -1197,8 +1208,12 @@ body::before {
         height: 50px;
     }
 
-    /* Mobile navigation */
+    /* Mobile navigation: keep links visible when JS is unavailable */
     .mobile-menu-toggle {
+        display: none;
+    }
+
+    .js-enabled .mobile-menu-toggle {
         display: block;
     }
 
@@ -1208,14 +1223,18 @@ body::before {
     }
 
     nav a {
-        display: none;
+        display: block;
         padding: 1rem 1.5rem;
         width: 100%;
         text-align: left;
         border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     }
 
-    nav.mobile-menu-open a {
+    .js-enabled nav a {
+        display: none;
+    }
+
+    .js-enabled nav.mobile-menu-open a {
         display: block;
     }
 
