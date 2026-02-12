@@ -302,11 +302,13 @@ nav a.active {
 
 .ad-request-qr {
     display: block;
-    width: 120px;
-    max-width: 100%;
+    width: 96px !important;
+    max-width: 96px !important;
+    min-width: 96px;
+    flex: 0 0 96px;
     height: auto;
     margin: 0;
-    padding: 8px;
+    padding: 4px;
     border-radius: var(--border-radius);
     border: 1px solid var(--light-border-color);
     background: #ffffff;
@@ -319,7 +321,10 @@ nav a.active {
     }
 
     .ad-request-qr {
-        width: 100px;
+        width: 88px !important;
+        max-width: 88px !important;
+        min-width: 88px;
+        flex-basis: 88px;
     }
 }
 
