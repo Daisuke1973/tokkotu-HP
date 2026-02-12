@@ -302,7 +302,8 @@ nav a.active {
 
 .ad-request-qr {
     display: block;
-    width: min(180px, 100%);
+    width: 120px;
+    max-width: 100%;
     height: auto;
     margin: 0;
     padding: 8px;
@@ -318,7 +319,7 @@ nav a.active {
     }
 
     .ad-request-qr {
-        width: min(160px, 70vw);
+        width: 100px;
     }
 }
 
