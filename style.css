@@ -800,6 +800,30 @@ footer p {
     color: var(--secondary-color);
 }
 
+.attendee-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1em 0;
+    font-size: 0.95em;
+}
+
+.attendee-table th,
+.attendee-table td {
+    padding: 0.5em 1em;
+    border-bottom: 1px solid #e0e0e0;
+    text-align: left;
+}
+
+.attendee-table th {
+    background: var(--primary-color, #2c3e50);
+    color: #fff;
+    font-weight: 600;
+}
+
+.attendee-table tbody tr:hover {
+    background: rgba(0, 0, 0, 0.03);
+}
+
 body::before {
     content: '';
     position: fixed;
