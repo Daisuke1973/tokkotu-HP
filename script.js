@@ -337,10 +337,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Heuristic mappings by header text
         const rules = [
-            { includes: ['旭川中', '校歌'], src: 'music/旭中校歌.m4a' },
-            { includes: ['旭川東', '校歌'], src: 'music/旭川東高校歌.m4a' },
-            { includes: ['旭川東', '逍遥歌'], src: 'music/旭川東高校逍遥歌.mp3' },
-            { includes: ['応援歌'], src: 'music/応援歌.m4a' },
+            { includes: ['旭川中', '校歌'], src: 'assets/audio/songs/asahikawa-junior-high-school-song.m4a' },
+            { includes: ['旭川東', '校歌'], src: 'assets/audio/songs/asahikawa-higashi-school-song.m4a' },
+            { includes: ['旭川東', '逍遥歌'], src: 'assets/audio/songs/asahikawa-higashi-shoyoka.mp3' },
+            { includes: ['応援歌'], src: 'assets/audio/songs/asahikawa-higashi-ouenka.m4a' },
         ];
         for (const r of rules) {
             if (r.includes.every(key => title.includes(key))) return r.src;

@@ -831,7 +831,7 @@ body::before {
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url('photo/473041961_29005869285679317_8590079737183509684_n.jpg');
+    background-image: url('assets/images/shared/backgrounds/site-background.jpg');
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;

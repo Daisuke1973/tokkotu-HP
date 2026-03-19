@@ -23,7 +23,7 @@ foreach ($file in $htmlFiles) {
         "name": "旭川東高等学校同窓会 札幌突兀会",
         "alternateName": "札幌突兀会",
         "url": "https://tokkotu.jp",
-        "logo": "https://tokkotu.jp/photo/mark1.gif",
+        "logo": "https://tokkotu.jp/assets/images/shared/branding/logo-mark1.gif",
         "foundingDate": "1960",
         "description": "旭川東高等学校同窓会の札幌支部。札幌市および近郊に住む旭川中学・旭川東高校の卒業生で構成される同窓会組織。",
         "address": {
@@ -55,7 +55,7 @@ foreach ($file in $htmlFiles) {
         "@type": "Organization",
         "name": "旭川東高等学校同窓会 札幌突兀会",
         "url": "https://tokkotu.jp",
-        "logo": "https://tokkotu.jp/photo/mark1.gif"
+        "logo": "https://tokkotu.jp/assets/images/shared/branding/logo-mark1.gif"
       },
       {
         "@type": "CollectionPage",
@@ -79,7 +79,7 @@ foreach ($file in $htmlFiles) {
         "@type": "Organization",
         "name": "旭川東高等学校同窓会 札幌突兀会",
         "url": "https://tokkotu.jp",
-        "logo": "https://tokkotu.jp/photo/mark1.gif",
+        "logo": "https://tokkotu.jp/assets/images/shared/branding/logo-mark1.gif",
         "foundingDate": "1960",
         "numberOfMembers": 4000
       },
@@ -104,7 +104,7 @@ foreach ($file in $htmlFiles) {
     "@type": "Organization",
     "name": "旭川東高等学校同窓会 札幌突兀会",
     "url": "https://tokkotu.jp",
-    "logo": "https://tokkotu.jp/photo/mark1.gif",
+    "logo": "https://tokkotu.jp/assets/images/shared/branding/logo-mark1.gif",
     "foundingDate": "1960"
   }
   </script>

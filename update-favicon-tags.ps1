@@ -4,12 +4,12 @@
 
 $htmlFiles = Get-ChildItem -Path "C:\code" -Filter "*.html"
 
-# Method B: Quick implementation using existing GIF
+# Method B: Quick implementation using shared branding GIF
 $newFaviconCode = @'
-<link rel="icon" href="/photo/mark1.gif" type="image/gif">
-  <link rel="apple-touch-icon" href="/photo/mark1.gif">
-  <link rel="shortcut icon" href="/photo/mark1.gif">
-  <meta name="msapplication-TileImage" content="/photo/mark1.gif">
+<link rel="icon" href="/assets/images/shared/branding/logo-mark1.gif" type="image/gif">
+  <link rel="apple-touch-icon" href="/assets/images/shared/branding/logo-mark1.gif">
+  <link rel="shortcut icon" href="/assets/images/shared/branding/logo-mark1.gif">
+  <meta name="msapplication-TileImage" content="/assets/images/shared/branding/logo-mark1.gif">
   <meta name="msapplication-TileColor" content="#2c3e50">
   <meta name="theme-color" content="#2c3e50">
 '@

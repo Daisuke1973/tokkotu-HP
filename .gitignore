@@ -1,2 +1,14 @@
 # Ignore Windows reserved device file
 nul
+
+# Local workspace metadata
+.vscode/
+
+# Working files and generated reports
+work/
+
+# Temporary and backup files
+*.backup
+*.bak
+*.orig
+tmp_*.txt

@@ -3,9 +3,9 @@
 ## 📋 現在の状況
 
 **既存ファイル:**
-- `photo/mark1.gif` (21.6KB)
+- `assets/images/shared/branding/logo-mark1.gif` (21.6KB)
 - 形式: GIF
-- 使用場所: 全HTMLファイルの`<link rel="icon">`タグ
+- 使用場所: 全HTMLファイルの favicon / Apple Touch Icon / Tile 画像タグ
 
 ---
 
@@ -24,7 +24,7 @@ https://realfavicongenerator.net/
 
 1. サイトにアクセス
 2. 「Select your Favicon image」をクリック
-3. `C:\code\photo\mark1.gif` をアップロード
+3. `C:\code\assets\images\shared\branding\logo-mark1.gif` をアップロード
 4. 各プラットフォームの設定を確認:
    - **Favicon for Desktop Browsers:** デフォルトでOK
    - **Favicon for iOS:** 背景色を選択（推奨: #2c3e50 - サイトの基本色）
@@ -79,7 +79,9 @@ C:\code\
 <meta name="theme-color" content="#2c3e50">
 ```
 
-**注意:** 既存の `<link rel="icon" href="photo/mark1.gif" type="image/gif" />` は削除します。
+**注意:** 現在の GIF ベースのタグ
+`<link rel="icon" href="/assets/images/shared/branding/logo-mark1.gif" type="image/gif">`
+などは、生成した favicon 群へ置き換えます。
 
 ---
 
@@ -90,19 +92,21 @@ C:\code\
 #### 変更内容:
 
 ```html
-<!-- Before（現在）-->
+<!-- Before（旧運用）-->
 <link rel="icon" href="photo/mark1.gif" type="image/gif" />
 
-<!-- After（改善版）-->
-<link rel="icon" href="/photo/mark1.gif" type="image/gif">
-<link rel="apple-touch-icon" href="/photo/mark1.gif">
-<meta name="msapplication-TileImage" content="/photo/mark1.gif">
+<!-- After（現行簡易版）-->
+<link rel="icon" href="/assets/images/shared/branding/logo-mark1.gif" type="image/gif">
+<link rel="apple-touch-icon" href="/assets/images/shared/branding/logo-mark1.gif">
+<meta name="msapplication-TileImage" content="/assets/images/shared/branding/logo-mark1.gif">
 <meta name="msapplication-TileColor" content="#2c3e50">
 ```
 
 **メリット:**
 - すぐに実装可能
 - ファイル生成不要
+
+**補足:** この簡易版は現在のHTMLに適用済みです。
 
 **デメリット:**
 - GIF形式のまま（最適ではない）

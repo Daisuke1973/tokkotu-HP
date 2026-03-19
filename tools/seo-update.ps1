@@ -133,14 +133,12 @@ foreach ($f in $files) {
   }
 
   # og:image selection priority:
-  # 1) First <img> in body  2) -DefaultOgImage  3) photo/og-default.jpg  4) photo/mark1.gif  5) none
+  # 1) First <img> in body  2) -DefaultOgImage  3) assets/images/shared/branding/logo-mark1.gif  4) none
   $imgMatch = [regex]::Match($bodyInner, '<img[^>]*src=["'']([^"'']+)["'']', 'IgnoreCase')
   $imgSrc = $null
   if ($imgMatch.Success) { $imgSrc = $imgMatch.Groups[1].Value }
   if (-not $imgSrc -and $DefaultOgImage) { $imgSrc = $DefaultOgImage }
-  if (-not $imgSrc -and (Test-Path 'photo/og-default.jpg')) { $imgSrc = 'photo/og-default.jpg' }
-  if (-not $imgSrc -and (Test-Path 'photo/og-default.png')) { $imgSrc = 'photo/og-default.png' }
-  if (-not $imgSrc -and (Test-Path 'photo/mark1.gif')) { $imgSrc = 'photo/mark1.gif' }
+  if (-not $imgSrc -and (Test-Path 'assets/images/shared/branding/logo-mark1.gif')) { $imgSrc = 'assets/images/shared/branding/logo-mark1.gif' }
   $imgAbs = $imgSrc
   if ($imgAbs) {
     if ($imgAbs -notmatch '^https?://') {
