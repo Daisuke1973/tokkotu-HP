@@ -2,13 +2,20 @@
 nul
 
 # Local workspace metadata
+.claude/
 .vscode/
 
 # Working files and generated reports
 work/
+public-site/
+docs/
+tools/
 
 # Temporary and backup files
 *.backup
 *.bak
 *.orig
 tmp_*.txt
+*.ps1
+FAVICON-GUIDE.md
+SEO-SETUP-GUIDE.md

@@ -1,4 +1,0 @@
-{
-    "codeQL.githubDatabase.download": "never",
-    "sarif-viewer.connectToGithubCodeScanning": "off"
-}

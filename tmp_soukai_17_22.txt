@@ -1,1 +1,0 @@
-  <link rel="icon" href="photo/mark1.gif" type="image/gif"></head><body>`n  <a href="#main" class="skip-link">繝｡繧､繝ｳ繧ｳ繝ｳ繝・Φ繝・∈繧ｹ繧ｭ繝・・</a>    <header role="banner">        <div class="container">            <img src="photo/mark1.gif" alt="札幌突兀会 ロゴ" class="header-logo">
