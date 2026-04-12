@@ -1821,27 +1821,39 @@ details summary {
     background-color: #e9f5ff;
 }
 
-/* 特定商取引法に基づく表記ページ用テーブル（長文を折り返し、モバイルでは縦積み） */
+/* 特定商取引法に基づく表記ページ用テーブル（長文を折り返し、モバイルではカード縦積み） */
 .tokuteisho-table {
     table-layout: fixed;
     width: 100%;
+    word-wrap: break-word;
+    overflow-wrap: anywhere;
 }
 .tokuteisho-table th,
 .tokuteisho-table td {
     white-space: normal;
     word-wrap: break-word;
     overflow-wrap: anywhere;
-    line-height: 1.7;
+    line-height: 1.75;
     vertical-align: top;
+    padding: 16px 18px;
 }
 .tokuteisho-table th {
     width: 28%;
 }
 
 @media (max-width: 768px) {
-    /* 768px 以下では yakuin-table 共通の block/overflow/nowrap を打ち消す */
-    .tokuteisho-table,
-    .tokuteisho-table thead,
+    /* 768px 以下では yakuin-table 共通の block/overflow/nowrap を打ち消し、カード縦積みに */
+    .tokuteisho-table {
+        display: block;
+        width: 100%;
+        border: none;
+        border-radius: 0;
+        box-shadow: none;
+        margin: 20px 0;
+        overflow: visible;
+        white-space: normal;
+    }
+    .tokuteisho-table thead { display: none; }
     .tokuteisho-table tbody,
     .tokuteisho-table tr,
     .tokuteisho-table th,
@@ -1850,24 +1862,33 @@ details summary {
         width: 100%;
         white-space: normal;
         overflow-x: visible;
+        box-sizing: border-box;
     }
-    .tokuteisho-table tr {
-        border-bottom: 1px solid var(--light-border-color);
-        padding: 4px 0;
+    .tokuteisho-table tbody tr {
+        background: #ffffff !important;
+        border: 1px solid var(--light-border-color);
+        border-radius: 8px;
+        margin-bottom: 12px;
+        overflow: hidden;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.04);
     }
-    .tokuteisho-table tbody tr:last-child {
-        border-bottom: none;
+    .tokuteisho-table tbody tr:hover {
+        background: #ffffff !important;
     }
     .tokuteisho-table th {
         background-color: #f1f5f8;
+        color: var(--primary-color);
         padding: 10px 14px;
-        border-bottom: none;
-        font-size: 0.95rem;
+        border-bottom: 1px solid var(--light-border-color);
+        font-size: 0.9rem;
+        font-weight: 700;
+        text-align: left;
     }
     .tokuteisho-table td {
-        padding: 12px 14px 16px;
+        padding: 14px 16px 16px;
         border-bottom: none;
         font-size: 0.95rem;
+        line-height: 1.8;
     }
 }
 
