@@ -13,6 +13,9 @@ Disallow: /_*
 # Disallow PowerShell scripts and tools
 Disallow: /*.ps1$
 
+# Disallow hidden review pages
+Disallow: /tokuteisho.html
+
 # Crawl-delay (optional, adjust if needed)
 # Crawl-delay: 1
 
