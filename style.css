@@ -1821,6 +1821,56 @@ details summary {
     background-color: #e9f5ff;
 }
 
+/* 特定商取引法に基づく表記ページ用テーブル（長文を折り返し、モバイルでは縦積み） */
+.tokuteisho-table {
+    table-layout: fixed;
+    width: 100%;
+}
+.tokuteisho-table th,
+.tokuteisho-table td {
+    white-space: normal;
+    word-wrap: break-word;
+    overflow-wrap: anywhere;
+    line-height: 1.7;
+    vertical-align: top;
+}
+.tokuteisho-table th {
+    width: 28%;
+}
+
+@media (max-width: 768px) {
+    /* 768px 以下では yakuin-table 共通の block/overflow/nowrap を打ち消す */
+    .tokuteisho-table,
+    .tokuteisho-table thead,
+    .tokuteisho-table tbody,
+    .tokuteisho-table tr,
+    .tokuteisho-table th,
+    .tokuteisho-table td {
+        display: block;
+        width: 100%;
+        white-space: normal;
+        overflow-x: visible;
+    }
+    .tokuteisho-table tr {
+        border-bottom: 1px solid var(--light-border-color);
+        padding: 4px 0;
+    }
+    .tokuteisho-table tbody tr:last-child {
+        border-bottom: none;
+    }
+    .tokuteisho-table th {
+        background-color: #f1f5f8;
+        padding: 10px 14px;
+        border-bottom: none;
+        font-size: 0.95rem;
+    }
+    .tokuteisho-table td {
+        padding: 12px 14px 16px;
+        border-bottom: none;
+        font-size: 0.95rem;
+    }
+}
+
 
 /* Table of Contents Dropdown */
 .toc-dropdown {
