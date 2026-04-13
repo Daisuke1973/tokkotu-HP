@@ -20,7 +20,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@700&family=Noto+Sans+JP:wght@400;500;700&display=swap" media="print" onload="this.media='all'">
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@700&family=Noto+Sans+JP:wght@400;500;700&display=swap"></noscript>
-  <link rel="stylesheet" href="style.css?v=20260413-logo">
+  <link rel="stylesheet" href="style.css?v=20260413-a11y">
 
   <script type="application/ld+json">
   {
@@ -71,7 +71,7 @@
   <main id="main" role="main">
     <div class="container">
       <div class="main-content">
-        <div style="background:#fff8e1;border-left:4px solid #d4a017;padding:12px 16px;margin-bottom:1.5em;font-size:0.9em;">
+        <div class="review-notice" role="note" aria-label="役員確認用の非公開レビュー版の注意書き">
           <strong>【役員確認用・非公開ページ】</strong><br>
           本ページは役員確認のためのレビュー版です。ナビゲーション・検索エンジンからは参照されません。URLを共有された方以外には公開しておりません。
         </div>
@@ -79,59 +79,60 @@
         <p>本ページは、特定商取引に関する法律第11条（通信販売についての広告）に基づき、当会がオンライン決済（Stripe）により年会費等をお受けするにあたって必要な事項を表示するものです。</p>
 
         <table class="yakuin-table tokuteisho-table">
+          <caption class="sr-only">旭川東高等学校同窓会札幌突兀会 特定商取引法に基づく表記</caption>
           <tbody>
             <tr>
-              <th>団体名</th>
+              <th scope="row">団体名</th>
               <td>旭川東高等学校同窓会 札幌突兀会</td>
             </tr>
             <tr>
-              <th>運営統括責任者</th>
+              <th scope="row">運営統括責任者</th>
               <td>会長　大村　東生</td>
             </tr>
             <tr>
-              <th>所在地</th>
+              <th scope="row">所在地</th>
               <td>請求があった場合には、遅滞なく書面又は電子メールにより開示いたします。</td>
             </tr>
             <tr>
-              <th>電話番号</th>
+              <th scope="row">電話番号</th>
               <td>請求があった場合には、遅滞なく書面又は電子メールにより開示いたします。</td>
             </tr>
             <tr>
-              <th>メールアドレス</th>
+              <th scope="row">メールアドレス</th>
               <td>sapporotokkotukai@gmail.com</td>
             </tr>
             <tr>
-              <th>ホームページ</th>
+              <th scope="row">ホームページ</th>
               <td>https://tokkotu.jp/</td>
             </tr>
             <tr>
-              <th>会費・寄付金</th>
+              <th scope="row">会費・寄付金</th>
               <td>
                 一口 1,000円（口数に上限はありません）。お申込フォームでご指定いただいた口数（quantity）に単価1,000円を乗じた金額が決済額となります。お申込みいただいた口数のうち、1口目を年会費、2口目以降を寄付金として処理いたします。<br>
                 ※寄付金は対価性のない任意の拠出であり、特定商取引法上の取引には該当しませんが、透明性のため併せて記載しています。
               </td>
             </tr>
             <tr>
-              <th>会費等以外の必要料金</th>
+              <th scope="row">会費等以外の必要料金</th>
               <td>決済ページへのアクセスにかかる通信料はお申込者様のご負担となります。</td>
             </tr>
             <tr>
-              <th>お支払方法</th>
+              <th scope="row">お支払方法</th>
               <td>クレジットカード決済（Stripeを利用）<br>利用可能ブランド：Visa / Mastercard / JCB / American Express / Diners Club</td>
             </tr>
             <tr>
-              <th>お支払時期</th>
+              <th scope="row">お支払時期</th>
               <td>お申込時に1回限りの決済が確定します（継続課金・自動更新は行いません）。</td>
             </tr>
             <tr>
-              <th>役務の提供時期</th>
+              <th scope="row">役務の提供時期</th>
               <td>
                 年会費（1口目）：ご入金確認日から、お申込日の属する事業年度末（毎年3月31日）までの会員資格を提供します。<br>
                 寄付金（2口目以降）：ご入金確認をもって受領とし、会の運営・事業に充当いたします。
               </td>
             </tr>
             <tr>
-              <th>返品・キャンセル<br>（契約の申込みの撤回又は解除）について</th>
+              <th scope="row">返品・キャンセル<br>（契約の申込みの撤回又は解除）について</th>
               <td>
                 本サービスは特定商取引法上の通信販売に該当し、同法第15条の3に定めるクーリングオフ制度の適用はございません。<br>
                 年会費および寄付金は、その性質上、ご入金後のお申込者様都合による返金には応じかねます。<br>
