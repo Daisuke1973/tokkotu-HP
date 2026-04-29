@@ -1846,6 +1846,48 @@ details summary {
     background-color: #e9f5ff;
 }
 
+/* 支払い案内ページ用 */
+.shiharai-section {
+    margin-top: 2.5em;
+}
+.shiharai-section h3 {
+    margin-top: 0;
+}
+.shiharai-benefits {
+    margin: 0 0 1em 1.5em;
+    line-height: 1.9;
+}
+.shiharai-cards {
+    list-style: none;
+    padding: 0;
+    margin: 0.5em 0 1em;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+.shiharai-cards li {
+    background: #f1f5f8;
+    color: var(--primary-color);
+    padding: 6px 14px;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    border: 1px solid var(--light-border-color);
+}
+.shiharai-note {
+    font-size: 0.85rem;
+    color: #555;
+    margin-top: 0.8em;
+}
+.shiharai-status {
+    background: #fff8e1;
+    border-left: 4px solid #d4a017;
+    padding: 14px 18px;
+    margin: 1em 0 0;
+    line-height: 1.8;
+    border-radius: 4px;
+}
+
 /* スクリーンリーダー専用（視覚的には非表示） */
 .sr-only {
     position: absolute;
