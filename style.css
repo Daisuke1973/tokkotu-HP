@@ -1846,46 +1846,391 @@ details summary {
     background-color: #e9f5ff;
 }
 
-/* 支払い案内ページ用 */
-.shiharai-section {
-    margin-top: 2.5em;
+/* ============================================================
+   支払い案内ページ (shiharai.html) — 洗練されたデザイン
+   ============================================================ */
+
+.shiharai-page > section,
+.shiharai-page > .letter-card {
+    margin-top: 2.6em;
 }
-.shiharai-section h3 {
-    margin-top: 0;
-}
-.shiharai-benefits {
-    margin: 0 0 1em 1.5em;
-    line-height: 1.9;
-}
-.shiharai-cards {
-    list-style: none;
-    padding: 0;
-    margin: 0.5em 0 1em;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-}
-.shiharai-cards li {
-    background: #f1f5f8;
-    color: var(--primary-color);
-    padding: 6px 14px;
-    border-radius: 4px;
-    font-size: 0.9rem;
-    font-weight: 600;
+
+/* お願い文 — Letter Card */
+.letter-card {
+    position: relative;
+    background: var(--surface-color);
     border: 1px solid var(--light-border-color);
+    border-radius: 12px;
+    padding: 2.2em 2.4em 1.8em;
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+    margin-top: 2em;
 }
-.shiharai-note {
+.letter-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--primary-color) 0%, var(--accent-color) 100%);
+}
+.letter-card__title {
+    margin: 0 0 1.4em;
+    color: var(--primary-color);
+    font-size: 1.2rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-align: center;
+    border: none;
+    padding: 0;
+}
+.letter-card__title::after {
+    content: "";
+    display: block;
+    width: 36px;
+    height: 1px;
+    background: var(--accent-color);
+    margin: 0.7em auto 0;
+}
+.letter-card__body p {
+    margin: 0 0 1em;
+    line-height: 2;
+    text-indent: 1em;
+    color: var(--text-color);
+}
+.letter-card__body p:last-child {
+    margin-bottom: 0;
+}
+.letter-card__signature {
+    margin: 1.6em 0 0;
+    text-align: right;
+    font-size: 0.92rem;
+    color: var(--secondary-color);
+    letter-spacing: 0.15em;
+}
+
+/* Price List — 料金（シンプル定義リスト） */
+.price-list {
+    margin: 0;
+    background: var(--surface-color);
+    border: 1px solid var(--light-border-color);
+    border-radius: 10px;
+    overflow: hidden;
+}
+.price-list__row {
+    display: grid;
+    grid-template-columns: 130px 1fr;
+    gap: 18px;
+    padding: 14px 20px;
+    border-bottom: 1px solid var(--light-border-color);
+    align-items: baseline;
+}
+.price-list__row:last-child {
+    border-bottom: none;
+}
+.price-list__row dt {
+    margin: 0;
     font-size: 0.85rem;
-    color: #555;
-    margin-top: 0.8em;
+    color: var(--secondary-color);
+    font-weight: 600;
+    letter-spacing: 0.05em;
 }
-.shiharai-status {
-    background: #fff8e1;
-    border-left: 4px solid #d4a017;
+.price-list__row dd {
+    margin: 0;
+    font-size: 0.95rem;
+    color: var(--text-color);
+    line-height: 1.7;
+}
+.price-list__row--main {
+    background: #f8fafc;
+    padding: 18px 20px;
+}
+.price-list__row--main dt {
+    color: var(--primary-color);
+}
+.price-list__amount {
+    display: inline-block;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    letter-spacing: 0.02em;
+}
+.price-list__sub {
+    display: inline-block;
+    margin-left: 12px;
+    font-size: 0.82rem;
+    color: var(--secondary-color);
+}
+@media (max-width: 560px) {
+    .price-list__row {
+        grid-template-columns: 1fr;
+        gap: 4px;
+        padding: 12px 16px;
+    }
+    .price-list__row--main {
+        padding: 14px 16px;
+    }
+    .price-list__sub {
+        margin-left: 0;
+        display: block;
+        margin-top: 2px;
+    }
+}
+
+/* Section Heading */
+.shiharai-page .section-heading {
+    position: relative;
+    margin: 0 0 1.4em;
+    padding-bottom: 0.7em;
+    font-size: 1.15rem;
+    color: var(--primary-color);
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    border: none;
+    border-bottom: 1px solid var(--light-border-color);
+}
+.shiharai-page .section-heading::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -1px;
+    width: 48px;
+    height: 2px;
+    background: var(--accent-color);
+}
+
+/* Payment Method Grid */
+.payment-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.3em;
+}
+@media (min-width: 740px) {
+    .payment-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+.payment-card {
+    position: relative;
+    background: var(--surface-color);
+    border: 1px solid var(--light-border-color);
+    border-radius: 12px;
+    padding: 1.6em 1.6em 1.4em;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+.payment-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+.payment-card--featured {
+    border-color: var(--accent-color);
+    box-shadow: 0 4px 14px rgba(52, 152, 219, 0.12);
+}
+.payment-card__head {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 0.9em;
+    padding-bottom: 0.7em;
+    border-bottom: 1px solid var(--light-border-color);
+}
+.payment-card__title {
+    margin: 0;
+    font-size: 1.05rem;
+    color: var(--primary-color);
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    flex: 1;
+}
+.payment-card__badge {
+    display: inline-block;
+    padding: 3px 10px;
+    background: var(--accent-color);
+    color: #ffffff;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    border-radius: 999px;
+    flex-shrink: 0;
+}
+.payment-card__brands {
+    margin: 0 0 1em;
+    font-size: 0.85rem;
+    color: var(--secondary-color);
+    line-height: 1.7;
+}
+.payment-card__note {
+    margin: 0.9em 0 0;
+    font-size: 0.76rem;
+    color: var(--secondary-color);
+    text-align: center;
+    letter-spacing: 0.05em;
+}
+
+/* Disabled CTA Button */
+.payment-button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    width: 100%;
+    margin-top: auto;
     padding: 14px 18px;
-    margin: 1em 0 0;
-    line-height: 1.8;
-    border-radius: 4px;
+    border: none;
+    border-radius: 10px;
+    background: #eef2f6;
+    color: #94a3b8;
+    font-family: inherit;
+    cursor: not-allowed;
+    transition: none;
+}
+.payment-button:disabled {
+    opacity: 1;
+}
+.payment-button__main {
+    font-size: 0.98rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+}
+.payment-button__sub {
+    font-size: 0.7rem;
+    color: #b8c2cc;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+/* Bank List (numbered) */
+.bank-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    counter-reset: bank;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.bank-item {
+    counter-increment: bank;
+    position: relative;
+    padding: 14px 16px 14px 48px;
+    background: #f8fafc;
+    border-radius: 8px;
+}
+.bank-item::before {
+    content: counter(bank);
+    position: absolute;
+    left: 12px;
+    top: 14px;
+    width: 26px;
+    height: 26px;
+    background: var(--primary-color);
+    color: #ffffff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.78rem;
+    font-weight: 700;
+    font-family: var(--font-display), sans-serif;
+}
+.bank-item__name {
+    margin: 0 0 6px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+.bank-item__info {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 3px 14px;
+    margin: 0;
+    font-size: 0.85rem;
+    line-height: 1.55;
+}
+.bank-item__info dt {
+    color: var(--secondary-color);
+    font-weight: 500;
+    white-space: nowrap;
+}
+.bank-item__info dd {
+    margin: 0;
+    color: var(--text-color);
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    word-break: break-all;
+}
+
+/* Benefits List — シンプルな箇条書き */
+.benefits-list {
+    list-style: none;
+    margin: 0;
+    padding: 1.2em 1.6em;
+    background: var(--surface-color);
+    border: 1px solid var(--light-border-color);
+    border-radius: 10px;
+}
+.benefits-list li {
+    position: relative;
+    padding: 8px 0 8px 24px;
+    font-size: 0.95rem;
+    color: var(--text-color);
+    line-height: 1.7;
+    border-bottom: 1px dashed #eef0f2;
+}
+.benefits-list li:last-child {
+    border-bottom: none;
+}
+.benefits-list li::before {
+    content: "";
+    position: absolute;
+    left: 4px;
+    top: 18px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent-color);
+    opacity: 0.7;
+}
+
+/* Refund Section */
+.refund-text {
+    margin: 0;
+    font-size: 0.9rem;
+    line-height: 1.9;
+    color: var(--text-color);
+    background: #f8fafc;
+    border-radius: 10px;
+    padding: 1.2em 1.6em;
+}
+.refund-text a {
+    color: var(--accent-color);
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
+/* Mobile adjustments */
+@media (max-width: 600px) {
+    .letter-card {
+        padding: 1.6em 1.4em 1.4em;
+    }
+    .letter-card__title {
+        font-size: 1.1rem;
+    }
+    .letter-card__body p {
+        line-height: 1.9;
+    }
+    .payment-card {
+        padding: 1.4em 1.3em 1.2em;
+    }
+    .payment-card__head {
+        flex-wrap: wrap;
+    }
 }
 
 /* スクリーンリーダー専用（視覚的には非表示） */
