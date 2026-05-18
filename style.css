@@ -2197,6 +2197,153 @@ details summary {
     opacity: 0.7;
 }
 
+/* 会費ページ — コンパクトレターカード */
+.letter-card.letter-card--compact {
+    padding: 1.4em 1.8em 1.2em;
+    margin-top: 1.5em;
+}
+.letter-card--compact .letter-card__body p {
+    text-indent: 0;
+    line-height: 1.9;
+    margin: 0;
+}
+.letter-card--compact .letter-card__signature {
+    margin-top: 0.9em;
+}
+.letter-card--compact::before {
+    height: 2px;
+}
+
+/* 会費ページ — 年会費サマリー（横並び1行） */
+.fee-summary {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 14px;
+    background: var(--primary-color);
+    color: #ffffff;
+    border-radius: 10px;
+    padding: 14px 22px;
+    margin: 1.4em 0 1.6em;
+    box-shadow: var(--shadow-sm);
+}
+.fee-summary__label {
+    font-size: 0.78rem;
+    color: rgba(255, 255, 255, 0.75);
+    letter-spacing: 0.25em;
+    font-weight: 600;
+}
+.fee-summary__price {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #ffffff;
+    letter-spacing: 0.02em;
+    font-family: var(--font-display), 'Noto Sans JP', sans-serif;
+}
+.fee-summary__note {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.85);
+    margin-left: auto;
+}
+@media (max-width: 480px) {
+    .fee-summary {
+        padding: 12px 16px;
+        gap: 8px;
+    }
+    .fee-summary__price {
+        font-size: 1.35rem;
+    }
+    .fee-summary__note {
+        flex-basis: 100%;
+        margin-left: 0;
+    }
+}
+
+/* 会費ページ — 振込先カード(2カラムグリッド) */
+.bank-list--grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+    margin-bottom: 1em;
+}
+@media (min-width: 640px) {
+    .bank-list--grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+/* 会費ページ — お振込み時の注意（ラベル＋テキストの2カラム構造） */
+.kaihi-notice__list {
+    list-style: none;
+    margin: 12px 0 0;
+    padding: 0;
+    display: grid;
+    gap: 10px;
+}
+.kaihi-notice__list li {
+    display: grid;
+    grid-template-columns: 84px 1fr;
+    align-items: center;
+    background: #fff8e1;
+    border-left: 4px solid #d4a017;
+    border-radius: 6px;
+    padding: 12px 16px;
+    color: var(--text-color);
+    line-height: 1.75;
+}
+.kaihi-notice__label {
+    background: var(--primary-color);
+    color: #ffffff;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    padding: 5px 0;
+    border-radius: 6px;
+    text-align: center;
+    line-height: 1.2;
+}
+.kaihi-notice__text {
+    font-size: 0.95rem;
+    padding-left: 14px;
+}
+.kaihi-notice__highlight {
+    color: var(--primary-color);
+    background: #ffffff;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: 700;
+    border: 1px solid #e6d49a;
+    margin: 0 2px;
+    display: inline-block;
+    line-height: 1.5;
+}
+.kaihi-notice__plus {
+    display: inline-block;
+    margin: 0 4px;
+    color: #b88a17;
+    font-weight: 700;
+}
+.sp-only {
+    display: none;
+}
+@media (max-width: 560px) {
+    .kaihi-notice__list li {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+    .kaihi-notice__label {
+        justify-self: start;
+        padding: 4px 14px;
+    }
+    .kaihi-notice__text {
+        padding-left: 0;
+        font-size: 0.92rem;
+    }
+    .sp-only {
+        display: inline;
+    }
+}
+
 /* Refund Section */
 .refund-text {
     margin: 0;
