@@ -2164,6 +2164,14 @@ details summary {
     letter-spacing: 0.02em;
     word-break: break-all;
 }
+.bank-item__kana {
+    display: inline-block;
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--secondary-color);
+    letter-spacing: 0.08em;
+    margin-top: 1px;
+}
 
 /* Benefits List — シンプルな箇条書き */
 .benefits-list {
