@@ -2408,6 +2408,12 @@ details summary {
 }
 
 /* 徽章 頒布ページ (kisho.html) */
+.kisho-lead {
+    margin: 0 0 1.8em;
+    line-height: 1.9;
+    color: var(--text-color);
+}
+
 /* 商品ヒーローカード */
 .kisho-hero {
     display: grid;
@@ -2471,12 +2477,6 @@ details summary {
     font-weight: 500;
     color: var(--secondary-color);
     letter-spacing: 0.02em;
-}
-.kisho-hero__desc {
-    margin: 0 0 14px;
-    font-size: 0.9rem;
-    line-height: 1.75;
-    color: var(--text-color);
 }
 .kisho-hero__stock {
     display: flex;
