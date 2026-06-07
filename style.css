@@ -2407,6 +2407,250 @@ details summary {
     }
 }
 
+/* 徽章 頒布ページ (kisho.html) */
+.kisho-lead {
+    margin: 0 0 1.8em;
+    line-height: 1.9;
+    color: var(--text-color);
+}
+
+/* 商品ヒーローカード */
+.kisho-hero {
+    display: grid;
+    grid-template-columns: 0.92fr 1.08fr;
+    gap: 32px;
+    align-items: center;
+    margin: 0 0 2.4em;
+    padding: 26px;
+    border: 1px solid var(--light-border-color);
+    border-radius: 18px;
+    background: linear-gradient(160deg, #f5fafd 0%, #ffffff 62%);
+    box-shadow: var(--shadow-md);
+}
+.kisho-hero__media {
+    margin: 0;
+    min-width: 0;
+}
+.kisho-gallery {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin: 0;
+}
+.kisho-hero .kisho-gallery img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    border-radius: 12px;
+    box-shadow: var(--shadow-sm);
+    background: #fff;
+}
+.kisho-gallery__hint {
+    margin: 8px 0 0;
+    font-size: 0.8rem;
+    color: var(--secondary-color);
+    text-align: center;
+}
+
+.kisho-hero__info {
+    min-width: 0;
+}
+.kisho-hero__eyebrow {
+    margin: 0 0 6px;
+    font-size: 0.74rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    color: var(--accent-color);
+}
+.kisho-hero__name {
+    margin: 0 0 12px;
+    font-size: 1.5rem;
+    line-height: 1.3;
+    color: var(--primary-color);
+    font-family: var(--font-display), 'Noto Sans JP', sans-serif;
+}
+.kisho-hero__name small {
+    display: block;
+    margin-top: 5px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--secondary-color);
+    letter-spacing: 0.02em;
+}
+.kisho-hero__stock {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0 0 12px;
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: var(--text-color);
+}
+.kisho-stock__badge {
+    display: inline-block;
+    background: #c0392b;
+    color: #fff;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    padding: 4px 10px;
+    border-radius: 999px;
+}
+.kisho-hero__price {
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+    margin: 0 0 4px;
+}
+.kisho-hero__price-value {
+    font-size: 2.4rem;
+    font-weight: 800;
+    line-height: 1;
+    color: var(--primary-color);
+    font-family: var(--font-display), 'Noto Sans JP', sans-serif;
+}
+.kisho-hero__yen {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+.kisho-hero__price-note {
+    margin-left: 8px;
+    padding: 3px 10px;
+    border-radius: 999px;
+    background: #eaf4fb;
+    color: var(--accent-color);
+    font-size: 0.78rem;
+    font-weight: 700;
+}
+.kisho-hero__pricesub {
+    margin: 0 0 18px;
+    font-size: 0.8rem;
+    color: var(--secondary-color);
+    line-height: 1.6;
+}
+.kisho-hero__deadline {
+    margin: 12px 0 0;
+    font-size: 0.9rem;
+    color: var(--text-color);
+    text-align: center;
+}
+.kisho-hero__deadline strong {
+    color: #c0392b;
+}
+
+/* 申込ボタン */
+.kisho-apply-btn {
+    display: inline-block;
+    padding: 14px 36px;
+    background: var(--accent-color);
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 1.05rem;
+    border-radius: 999px;
+    text-decoration: none;
+    text-align: center;
+    box-shadow: 0 8px 20px rgba(52, 152, 219, 0.35);
+    transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+}
+.kisho-apply-btn:hover,
+.kisho-apply-btn:focus-visible {
+    background: #2c80b4;
+    transform: translateY(-2px);
+    box-shadow: 0 12px 26px rgba(52, 152, 219, 0.45);
+}
+.kisho-apply-btn--block {
+    display: block;
+    width: 100%;
+}
+
+/* ご注文の流れ */
+.kisho-flow {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+}
+.kisho-flow__step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 10px;
+    padding: 18px 14px;
+    border: 1px solid var(--light-border-color);
+    border-radius: 12px;
+    background: #f8fbfd;
+}
+.kisho-flow__num {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: var(--accent-color);
+    color: #fff;
+    font-weight: 800;
+    font-family: var(--font-display), sans-serif;
+}
+.kisho-flow__body h4 {
+    margin: 0 0 4px;
+    font-size: 1rem;
+    color: var(--primary-color);
+}
+.kisho-flow__body p {
+    margin: 0;
+    font-size: 0.85rem;
+    color: var(--text-color);
+    line-height: 1.6;
+}
+.kisho-flow__note {
+    margin: 14px 0 0;
+    font-size: 0.86rem;
+    color: var(--secondary-color);
+    line-height: 1.7;
+}
+
+/* ご注意事項 */
+.kisho-notes {
+    margin: 0;
+    padding-left: 1.3em;
+    line-height: 1.85;
+    color: var(--text-color);
+}
+.kisho-notes li {
+    margin-bottom: 8px;
+}
+.kisho-notes li:last-child {
+    margin-bottom: 0;
+}
+
+@media (max-width: 760px) {
+    .kisho-hero {
+        grid-template-columns: 1fr;
+        gap: 22px;
+        padding: 20px;
+    }
+}
+@media (max-width: 560px) {
+    .kisho-flow {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+    .kisho-flow__step {
+        flex-direction: row;
+        text-align: left;
+        gap: 14px;
+    }
+    .kisho-hero__price-value {
+        font-size: 2rem;
+    }
+}
+
 /* Refund Section */
 .refund-text {
     margin: 0;
