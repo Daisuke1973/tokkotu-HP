@@ -939,7 +939,7 @@ nav a[aria-current="page"]:hover {
     border-radius: var(--border-radius);
     overflow: hidden;
 }
-.song-section h3 {
+.song-section .accordion-header {
     font-family: var(--font-sans);
     font-size: 1.2rem;
     color: var(--text-color);
@@ -951,7 +951,7 @@ nav a[aria-current="page"]:hover {
     border-left: none;
     position: relative;
 }
-.song-section h3::after {
+.song-section .accordion-header::after {
     content: '+';
     position: absolute;
     right: 20px;
@@ -959,7 +959,7 @@ nav a[aria-current="page"]:hover {
     color: var(--secondary-color);
     transition: transform 0.3s ease;
 }
-.song-section h3.active::after {
+.song-section .accordion-header.active::after {
     transform: rotate(45deg);
 }
 .lyrics-content {
@@ -969,12 +969,11 @@ nav a[aria-current="page"]:hover {
     overflow: hidden;
     transition: max-height 0.4s ease-in-out, opacity 0.4s ease-in-out, padding 0.4s ease-in-out;
 }
+/* Keep lyrics expanded while the section is open
+   （ヘッダーが h3 直下の button になったため、隣接セレクタから .show クラス方式に変更） */
 .lyrics-content.show {
     padding: 20px;
     opacity: 1;
-}
-/* Keep lyrics expanded while header is active */
-.song-section h3.accordion-header.active + .lyrics-content {
     /* Large max-height to accommodate content growth */
     max-height: 99999px;
 }
@@ -1091,9 +1090,19 @@ footer .footer-legal a:hover {
     box-shadow: var(--shadow-md);
 }
 
+/* 見出しはラッパーに徹し、開閉操作は中の <button> が担う
+   （h3 の見出しセマンティクスとボタンの操作性を両立させるため）。
+   枠線・余白・背景はすべて button 側に持たせ、h3 は箱としては無色透明にする。
+   font-family / font-size / font-weight / color は .main-content h3 から
+   引き継がせたいので、ここでは打ち消さない（button 側が font: inherit で受け取る）。 */
+h3.accordion-heading {
+    margin: 0;
+    padding: 0;
+    border: none;
+}
+
 .accordion-header {
     background-color: var(--surface-color);
-    padding: 5px 25px;
     cursor: pointer;
     position: relative;
     display: flex;
@@ -1101,11 +1110,24 @@ footer .footer-legal a:hover {
     align-items: center;
     transition: background-color 0.2s ease;
     width: 100%;
-    /* h3のスタイルを上書き */
-    margin: 0;
-    border-left: none;
-    padding-left: 25px;
     text-align: left;
+    /* 従来 .main-content h3 が h3.accordion-header に与えていた余白・左罫を引き継ぐ */
+    margin: 1em 0 0.5em;
+    padding: 5px 25px 5px 15px;
+    border: none;
+    border-left: 4px solid var(--accent-color);
+    /* button のUAスタイルを打ち消し、従来のh3と同じ文字組みにする */
+    -webkit-appearance: none;
+    appearance: none;
+    font: inherit;
+    color: inherit;
+}
+
+/* 枠線が .accordion-item の overflow:hidden で切れないよう内側に描く */
+.accordion-header:focus-visible {
+    outline: 2px solid var(--accent-color);
+    outline-offset: -4px;
+    border-radius: 0;
 }
 
 .accordion-header.active {
@@ -3141,6 +3163,10 @@ details summary {
         page-break-inside: avoid;
     }
 
+    .accordion-heading {
+        margin: 0;
+    }
+
     .accordion-header {
         background: #f5f5f5 !important;
         color: #000 !important;
@@ -3148,6 +3174,7 @@ details summary {
         font-weight: bold;
         border: none;
         cursor: default;
+        width: 100%;
     }
 
     .accordion-header::after {

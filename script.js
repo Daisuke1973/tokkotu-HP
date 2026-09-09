@@ -40,9 +40,21 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Inline max-height control is disabled; rely on CSS class for expansion
 
+    // The header is a <button> wrapped in the heading, so the panel is resolved
+    // through aria-controls (falling back to the heading's next sibling).
+    function getAccordionContent(header) {
+        const id = header.getAttribute('aria-controls');
+        if (id) {
+            const byId = document.getElementById(id);
+            if (byId) return byId;
+        }
+        const heading = header.closest('.accordion-heading');
+        return heading ? heading.nextElementSibling : header.nextElementSibling;
+    }
+
     function toggleAccordion(header, open) {
-        const accordionItem = header.parentElement;
-        const accordionContent = header.nextElementSibling;
+        const accordionItem = header.closest('.accordion-item') || header.parentElement;
+        const accordionContent = getAccordionContent(header);
         if (!accordionItem || !accordionContent) return;
 
         const isActive = header.classList.contains('active');
@@ -51,6 +63,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // Add classes first (preferred CSS-driven expand)
             accordionItem.classList.add('active');
             header.classList.add('active');
+            header.setAttribute('aria-expanded', 'true');
 
             // Fallback: if for any reason the section doesn't expand,
             // set an inline max-height to the current content height to ensure opening,
@@ -78,6 +91,7 @@ document.addEventListener('DOMContentLoaded', function() {
             void accordionContent.offsetHeight;
 
             header.classList.remove('active');
+            header.setAttribute('aria-expanded', 'false');
             accordionItem.classList.remove('active');
 
             accordionContent.style.maxHeight = '0px';
@@ -371,24 +385,29 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Song lyrics toggle
-    const songHeaders = document.querySelectorAll('.song-section h3');
+    const songHeaders = document.querySelectorAll('.song-section .accordion-header');
     songHeaders.forEach(header => {
         header.addEventListener('click', function() {
-            this.classList.toggle('active');
-            const content = this.nextElementSibling;
-            if (content.style.maxHeight && content.style.maxHeight !== '0px'){
+            const content = getAccordionContent(this);
+            if (!content) return;
+
+            const isOpen = this.classList.toggle('active');
+            this.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+            const section = this.closest('.song-section');
+
+            if (!isOpen) {
+                content.classList.remove('show');
                 content.style.maxHeight = '0px';
                 content.style.padding = '0 20px';
                 content.style.opacity = '0';
                 // Pause audio when closing
-                const section = this.closest('.song-section');
                 if (currentSongSection === section) pauseCurrentSong();
             } else {
+                content.classList.add('show');
                 content.style.padding = '20px';
                 content.style.opacity = '1';
                 content.style.maxHeight = content.scrollHeight + "px";
                 // Play audio when opening
-                const section = this.closest('.song-section');
                 playSectionAudio(section, this);
             }
         });
@@ -447,7 +466,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 if (targetElement) {
                     const targetHeader = targetElement.querySelector('.accordion-header');
-                    const accordionContent = targetHeader.nextElementSibling;
+                    const accordionContent = targetHeader ? getAccordionContent(targetHeader) : null;
 
                     const scrollToTarget = () => {
                         const nav = document.querySelector('nav');
@@ -465,12 +484,12 @@ document.addEventListener('DOMContentLoaded', function() {
                     tocContent.classList.remove('show');
                     tocContent.style.maxHeight = null;
 
-                    if (!targetHeader.classList.contains('active')) {
+                    if (targetHeader && accordionContent && !targetHeader.classList.contains('active')) {
                         // Listen for the transition to end, then scroll
                         accordionContent.addEventListener('transitionend', scrollToTarget, { once: true });
                         toggleAccordion(targetHeader, true);
                     } else {
-                        // If already open, just scroll
+                        // Already open, or not an accordion target: just scroll
                         scrollToTarget();
                     }
                 }
