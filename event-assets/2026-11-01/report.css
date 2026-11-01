@@ -1,0 +1,39 @@
+/* Styles scoped to the 2026 women's gathering report. */
+.joshikai-report .joshikai-report-body p {
+    line-height: 2;
+    margin-bottom: 1.5rem;
+}
+.joshikai-report #photos-heading {
+    margin-bottom: 8px;
+    font-size: 1.1rem;
+}
+.joshikai-report .joshikai-photo-hint {
+    margin-bottom: 16px;
+    color: var(--text-color);
+    font-size: 0.9rem;
+}
+.joshikai-gallery {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    margin-top: 0;
+}
+.joshikai-gallery a:first-child {
+    grid-column: 1 / -1;
+}
+.joshikai-gallery a {
+    display: block;
+    border-radius: var(--border-radius);
+}
+.joshikai-gallery a:focus-visible {
+    outline: 3px solid var(--accent-color);
+    outline-offset: 4px;
+}
+.joshikai-gallery img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+@media (max-width: 600px) {
+    .joshikai-gallery {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}
